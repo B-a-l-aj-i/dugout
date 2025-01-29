@@ -5,6 +5,40 @@ import useSWR from "swr";
 import Image from "next/image";
 import { useLocalStorageValue } from "@react-hookz/web";
 
+
+// Updated Slack Fetcher to Use Next.js API Route
+export const slackPersistentFetcher = async (url, localStorage) => {
+    const { value, set } = localStorage;
+    if (value) {
+      const { data, timestamp } = value;
+  
+      // Cache valid for 24 hours
+      if (Date.now() - timestamp < 24 * 60 * 60 * 1000) {
+        return data;
+      }
+    }
+  
+    // Use Next.js API route instead of calling Slack directly
+    const res = await fetch(`/api/slack/fetcher?url=${encodeURIComponent(url)}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  
+  
+    if (!res.ok) throw new Error("Failed to fetch Slack data");
+  
+    const data = await res.json();
+    set({ data, timestamp: Date.now() });
+  
+    console.log(data);
+    
+  
+    return data;
+  };
+  
+
 function UserDetails({ userId, timestamp }) {    
 
   const localStorage = useLocalStorageValue(userId);
@@ -43,37 +77,6 @@ function UserDetails({ userId, timestamp }) {
   );
 }
 
-// Updated Slack Fetcher to Use Next.js API Route
-export const slackPersistentFetcher = async (url, localStorage) => {
-  const { value, set } = localStorage;
-  if (value) {
-    const { data, timestamp } = value;
-
-    // Cache valid for 24 hours
-    if (Date.now() - timestamp < 24 * 60 * 60 * 1000) {
-      return data;
-    }
-  }
-
-  // Use Next.js API route instead of calling Slack directly
-  const res = await fetch(`/api/slack/fetcher?url=${encodeURIComponent(url)}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-
-  if (!res.ok) throw new Error("Failed to fetch Slack data");
-
-  const data = await res.json();
-  set({ data, timestamp: Date.now() });
-
-  console.log(data);
-  
-
-  return data;
-};
 
 // Timestamp Formatter
 function formatTimestamp(slackTimestamp:number) {

@@ -1,7 +1,7 @@
 'use Client'
 
 import useSWR from "swr";
-// import { slackFetcher } from "@/utils/fetchUtils";
+import {fetcher} from "@/app/page"
 import UserDetails from "./UserDetails";
 
 import {
@@ -13,21 +13,7 @@ import {
   ModalOverlay,
 } from "react-aria-components";
 
-const fetcher = async ([url, body]) => {
-    console.log(url);
-    
-    const res = await fetch(`/api/slack/fetcher?url=${encodeURIComponent(url)}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  
-  
-    if (!res.ok) throw new Error("Failed to fetch Slack data");
-  
-    return res.json();
-  };
+
 function ThreadModal({ channelId, timestamp }) {
     
   const { data, error, isLoading } = useSWR(
@@ -43,12 +29,12 @@ function ThreadModal({ channelId, timestamp }) {
   if (error) return <div>error..........</div>;
   if (isLoading) return <div>Loading......</div>;
 
-  console.log(data);
+//   console.log(data);
 
   return (
     <DialogTrigger>
       <Button className="inline-flex items-center justify-center rounded-md hover:bg-slate-400 bg-opacity-20 bg-clip-padding border border-white/20 px-3.5 py-2 font-medium font-[inherit] text-base text-gray-400 hover:text-black hover:bg-opacity-30 pressed:bg-opacity-40 transition-colors  outline-none focus-visible:ring-2 focus-visible:ring-white/75 cursor-pointer">
-        {data.messages.length - 1} replies
+        {data?.messages?.length - 1} replies
         {/* <Reply aria-label="Reply" /> */}
       </Button>
       <ModalOverlay

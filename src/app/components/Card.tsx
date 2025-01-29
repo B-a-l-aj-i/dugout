@@ -21,7 +21,7 @@ function Card({ userInfo, channelId }) {
         <br />
         &nbsp;&nbsp;{parts[1]}
       </div>
-      <ThreadModal channelId={channelId} timestamp={userInfo.ts} />
+      {/* <ThreadModal channelId={channelId} timestamp={userInfo.ts} /> */}
     </div>
   );
 }

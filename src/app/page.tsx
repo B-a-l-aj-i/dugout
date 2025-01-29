@@ -10,31 +10,19 @@ const CHANNELID = "C089LA005S8";
 
 
 
- const fetcher = async ([url, body]) => {
-  console.log("page.tsx  url   "+url);
-  
-  const res = await fetch(`/api/slack/fetcher?url=${encodeURIComponent(url)}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-
+export const fetcher = async (url) => {
+  const res = await fetch(url);
   if (!res.ok) throw new Error("Failed to fetch Slack data");
-
   return res.json();
 };
 
-export default function App() {
-  const { data, error, isLoading } = useSWR(
-    [`https://slack.com/api/conversations.history?channel=${CHANNELID}`],
-    fetcher,
-  );
+export default  function App() {
+  const { data, error, isLoading } = useSWR(`/api/conversationHistory`,fetcher);
 
   if (error) return <div>Error getting messages {error}</div>;
   if (isLoading) return <div>Loading.....</div>;
-  console.log(data?.messages);
+  // console.log(data?.messages);
+
 
   return (
     <>
