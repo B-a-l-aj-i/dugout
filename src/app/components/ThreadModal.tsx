@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import useSWR from "swr";
-import UserDetails from "./UserDetails";
 import Loading from "./Loading";
+import ThreadMesssage from "./ThreadMesssage";
 
 import {
   Button,
@@ -90,7 +90,7 @@ function ThreadModal({ channelId, timestamp ,replyCount}:{channelId:string,times
   return (
     <DialogTrigger>
       <Button 
-      onPress={() => setIsOpen(true)}
+      onPress={() => setIsOpen(!isOpen)}
       className="inline-flex items-center justify-center rounded-md hover:bg-slate-400 bg-opacity-20 bg-clip-padding border border-white/20 px-3.5 py-2 font-medium font-[inherit] text-base text-gray-400 hover:text-black hover:bg-opacity-30 pressed:bg-opacity-40 transition-colors  outline-none focus-visible:ring-2 focus-visible:ring-white/75 cursor-pointer">
         {replyCount} replies
         {/* <Reply aria-label="Reply" /> */}
@@ -129,11 +129,18 @@ function ThreadModal({ channelId, timestamp ,replyCount}:{channelId:string,times
 
                 {/* <UserDetails /> */}
 
-                {data.messages.map((userInfo, key:number) => (
+                {/* <ThreadMesssage userInfo={data.messages[0]}/> */}
+
+                <ThreadMesssage userInfo={data?.messages[0]}/>
+
+                {data?.messages?.map((userInfo,key)=>{
+                  <ThreadMesssage userInfo={userInfo}/>
+                })}
+
+                
+                {/* 
+                {data?.messages?.map((userInfo, key:number) => (
                   <div key={key}>
-                    {data.messages[key - 1] != data.messages[key] && (
-                      <hr className="mb-5 mt-5" />
-                    )}
                     <div
                       className={`p-4 border-2 rounded-md mb-4  ${
                         key == 0 ? "ml-0" : "ml-5"
@@ -146,7 +153,7 @@ function ThreadModal({ channelId, timestamp ,replyCount}:{channelId:string,times
                       <p>{userInfo.text}</p>
                     </div>
                   </div>
-                ))}
+                ))} */}
               </>
             )}
           </Dialog>

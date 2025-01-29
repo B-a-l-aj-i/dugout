@@ -30,7 +30,7 @@ export default  function App() {
     <>
        <Header />
      {data?.messages?.map((userInfo, key:number) =>
-        !userInfo.subtype ? (
+        !userInfo.subtype? (
           <Card key={key} userInfo={userInfo} channelId={CHANNELID}  replyCount={userInfo.reply_count || 0}/>
         ) : (
           ""
