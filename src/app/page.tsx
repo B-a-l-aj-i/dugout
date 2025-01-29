@@ -10,12 +10,16 @@ const CHANNELID = "C089LA005S8";
 
 
 
-const fetcher = async ([url, body]) => {
-  const res = await fetch("/api/slack/fetcher", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ url, body }),
+ const fetcher = async ([url, body]) => {
+  console.log("page.tsx  url   "+url);
+  
+  const res = await fetch(`/api/slack/fetcher?url=${encodeURIComponent(url)}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
+
 
   if (!res.ok) throw new Error("Failed to fetch Slack data");
 

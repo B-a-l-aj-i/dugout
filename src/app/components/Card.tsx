@@ -1,5 +1,5 @@
 'use Client'
-// import ThreadModal from "./ThreadModal";
+import ThreadModal from "../components/ThreadModal";
 import UserDetails from "./UserDetails";
 // type UserDetails={
 //     userInfo:string,
@@ -21,7 +21,7 @@ function Card({ userInfo, channelId }) {
         <br />
         &nbsp;&nbsp;{parts[1]}
       </div>
-      {/* <ThreadModal channelId={channelId} timestamp={userInfo.ts} /> */}
+      <ThreadModal channelId={channelId} timestamp={userInfo.ts} />
     </div>
   );
 }

@@ -56,11 +56,13 @@ export const slackPersistentFetcher = async (url, localStorage) => {
   }
 
   // Use Next.js API route instead of calling Slack directly
-  const res = await fetch("/api/slack/fetcher", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ url }),
+  const res = await fetch(`/api/slack/fetcher?url=${encodeURIComponent(url)}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
+
 
   if (!res.ok) throw new Error("Failed to fetch Slack data");
 
