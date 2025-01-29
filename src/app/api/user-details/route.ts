@@ -1,17 +1,21 @@
 import { NextResponse } from "next/server";
 
-export async function GET(req) {
+
+export async function GET(req:Request) {
+    
+
   try {
     const { searchParams } = new URL(req.url);
-    const url = searchParams.get("url"); // Get URL from query params
+    const userId = searchParams.get("userId");
 
-    if (!url) {
-      return NextResponse.json({ error: "Missing URL" }, { status: 400 });
+    if (!userId) {
+      return NextResponse.json(
+        { error: "Missing userId parameter" },
+        { status: 400 }
+      );
     }
-
-    console.log("Fetching Slack API:", url);
-
-    const response = await fetch(url, {
+    // console.log(userId)
+    const response = await fetch(`https://slack.com/api/users.info?user=${userId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${process.env.SLACK_DUGOUT_BOT_TOKEN}`,
@@ -20,8 +24,7 @@ export async function GET(req) {
     });
 
     const data = await response.json();
-    console.log("Slack API Response:", data);
-
+    console.log("Slack API Response for user DEtails:", data);
     return NextResponse.json(data);
   } catch (error) {
     console.error("Slack API Fetch Error:", error);

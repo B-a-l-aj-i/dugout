@@ -7,7 +7,7 @@ import { useLocalStorageValue } from "@react-hookz/web";
 
 
 // Updated Slack Fetcher to Use Next.js API Route
-export const slackPersistentFetcher = async (url, localStorage) => {
+export const slackPersistentFetcher = async (url:string, localStorage) => {
     const { value, set } = localStorage;
     if (value) {
       const { data, timestamp } = value;
@@ -19,7 +19,9 @@ export const slackPersistentFetcher = async (url, localStorage) => {
     }
   
     // Use Next.js API route instead of calling Slack directly
-    const res = await fetch(`/api/slack/fetcher?url=${encodeURIComponent(url)}`, {
+    console.log(url);
+    
+    const res = await fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -39,7 +41,7 @@ export const slackPersistentFetcher = async (url, localStorage) => {
   };
   
 
-function UserDetails({ userId, timestamp }) {    
+function UserDetails({ userId, timestamp }:{userId:number,timestamp:number}) {    
 
   const localStorage = useLocalStorageValue(userId);
   const {
@@ -47,7 +49,7 @@ function UserDetails({ userId, timestamp }) {
     error: userError,
     isLoading: userIsLoading,
   } = useSWR(
-    [`https://slack.com/api/users.info?user=${userId}`], // No need for `pretty=1`
+    `api/user-details/?userId=${userId}`,
     (url) => slackPersistentFetcher(url, localStorage),
     {
       revalidateIfStale: false,
@@ -59,6 +61,9 @@ function UserDetails({ userId, timestamp }) {
   if (userError) return <div>Error getting messages</div>;
   if (userIsLoading) return <div>Loading....</div>;
 
+  // console.log(userData);
+  
+
   return (
     <div className="flex gap-3 mb-4">
       <Image
@@ -66,11 +71,11 @@ function UserDetails({ userId, timestamp }) {
         height={30}
         alt="Profile Pic"
         className="rounded-full"
-        src={userData?.user?.profile?.image_48 || "/default-avatar.png"} // ✅ Provide a fallback
-        unoptimized // ✅ Avoid Next.js image optimization for external images
+        src={userData?.user?.profile?.image_48 || "/globe.svg"} //  Provide a fallback
+        unoptimized // Avoid Next.js image optimization for external images
         />
       <div>
-        <p className="font-bold">{userData?.user?.profile?.real_name}</p>
+        <p className="font-bold">{userData?.user?.profile?.real_name||"name not fetched"}</p>
         <p>{formatTimestamp(timestamp)}</p>
       </div>
     </div>
