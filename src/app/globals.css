@@ -19,3 +19,27 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 } */
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+code {
+  background-color: #f5f5f5;
+  padding: 0.25rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+pre code {
+  font-family: default;
+  display: block;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

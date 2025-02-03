@@ -51,7 +51,7 @@ function ThreadModal({ channelId, timestamp ,replyCount}:{channelId:string,times
                     className="py-0 px-4 cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-800 w-0  hover:border-slate-300 pressed:bg-slate-300"
                     onPress={close}
                   >
-                    X
+                    x
                   </DialogButton>
                 </Heading>
                 <p className="text-gray-400">Conversation thread and replies</p>

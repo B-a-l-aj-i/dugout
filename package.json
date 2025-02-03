@@ -15,6 +15,8 @@
     "react": "^19.0.0",
     "react-aria-components": "^1.6.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^9.0.3",
+    "react-slack-renderer": "^0.0.15",
     "swr": "^2.3.0"
   },
   "devDependencies": {

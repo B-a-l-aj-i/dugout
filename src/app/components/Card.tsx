@@ -1,12 +1,16 @@
 'use client'
 import ThreadModal from "../components/ThreadModal";
 import UserDetails from "./UserDetails";
+import Renderer from "./Renderer";
+import ReactMarkdown from 'react-markdown';
+
+// import { SlackMarkdown } from "react-slack-renderer";
 
 
 function Card({ userInfo, channelId,replyCount}:{userInfo:number,channelId:string,replyCount:number}) {
-  // console.log(replyCount);
 
-  // const parts = userInfo.text.split("•");
+  console.log(userInfo);
+  
 
   return (
     <div className=" p-6 shadow-lg mx-auto b rounded-lg w-1/2 mb-5 max-[1000px]:w-[90%] hover:scale-105 transition-transform duration-300">
@@ -14,11 +18,13 @@ function Card({ userInfo, channelId,replyCount}:{userInfo:number,channelId:strin
         <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />
       </div>
       <div>
-        {/* {parts[0]}
-        <br />
-        &nbsp;&nbsp;{parts[1]} */}
-        {userInfo?.text}
-        {/* <pre>{JSON.stringify(userInfo, null, 2)}</pre> */}
+      {/* <SlackMarkdown>{userInfo?.text}</SlackMarkdown>; */}
+        {/* {userInfo?.text} */}
+
+        {/* <ReactMarkdown>{userInfo?.text}</ReactMarkdown> */}
+        <pre className="font-sans overflow-auto whitespace-pre-wrap">
+          <Renderer text={userInfo?.text} />
+        </pre>
       </div>
       <ThreadModal replyCount={replyCount} channelId={channelId} timestamp={userInfo?.ts} />
     </div>

@@ -75,7 +75,7 @@ function UserDetails({ userId, timestamp }:{userId:number,timestamp:number}) {
         unoptimized // Avoid Next.js image optimization for external images
         />
       <div>
-        <p className="font-bold">{userData?.user?.profile?.real_name||"name not fetched"}</p>
+        <p className="font-bold">{userData?.user?.profile?.real_name||"Fetching"}</p>
         <p>{formatTimestamp(timestamp)}</p>
       </div>
     </div>
