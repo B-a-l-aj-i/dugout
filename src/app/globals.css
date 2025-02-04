@@ -19,6 +19,9 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 } */
+ body{
+  margin-top: 5%;
+ }
 strong {
   font-weight: bold;
 }

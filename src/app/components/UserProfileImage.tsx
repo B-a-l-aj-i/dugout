@@ -1,12 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import Image from 'next/image'
-import React from 'react'
+import Image from "next/image";
+import React from "react";
 import SlackImage from "../components/SlackImage";
-
-
-
-
 
 import { useEffect, useState } from "react";
 
@@ -15,12 +11,13 @@ function UserProfileImage({ imageUrl }) {
   const [error, setError] = useState(null);
 
   console.log(imageUrl);
-  
 
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await fetch(`/api/slack-image?fileUrl=${encodeURIComponent(imageUrl)}`);
+        const response = await fetch(
+          `/api/slack-image?fileUrl=${encodeURIComponent(imageUrl)}`,
+        );
         if (!response.ok) throw new Error("Failed to load image");
 
         const blob = await response.blob();
@@ -42,7 +39,9 @@ function UserProfileImage({ imageUrl }) {
   if (error) return <p>Error loading image</p>;
   if (!imageSrc) return <p>Loading...</p>;
 
-  return <img src={imageSrc} alt="User Profile" className="w-20 h-20 rounded-full" />;
+  return (
+    <img src={imageSrc} alt="User Profile" className="h-20 w-20 rounded-full" />
+  );
 }
 
 export default UserProfileImage;

@@ -3,8 +3,10 @@ import UserDetails from './UserDetails'
 import useSWR from 'swr';
 import Loading from './Loading';
 import Renderer from './Renderer';
+import { auth } from '../auth';
 
 export const fetcher1 = async (url) => {
+  
   const res = await fetch(url);
   if (!res.ok) throw new Error("Failed to fetch Slack data");
   return res.json();
