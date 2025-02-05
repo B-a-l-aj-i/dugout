@@ -16,7 +16,7 @@ interface IThreadMEssage {
 }
 function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
   const { data, error, isLoading } = useSWR(
-    `/api/threads?channelId=${channelId}&ts=${timestamp}`, // Only fetch when `isOpen` is true
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/threads?channelId=${channelId}&ts=${timestamp}`, // Only fetch when `isOpen` is true
     fetcher1,
   );
   //  console.log(data);

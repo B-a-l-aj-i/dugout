@@ -27,7 +27,7 @@ export default function App() {
   // );
 
   const { data, error, isLoading } = useSWR(
-    "/api/conversation-history",
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/conversation-history`,
     fetcher,
   );
   const { data: session } = useSession();

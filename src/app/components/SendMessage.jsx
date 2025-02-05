@@ -47,7 +47,7 @@ export function SendMessage({ user }) {
 
   // ✅ Use SWR mutation with the correct API route
   const { trigger, isMutating } = useSWRMutation(
-    "/api/send-message",
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-message`,
     sendMessage,
   );
 
