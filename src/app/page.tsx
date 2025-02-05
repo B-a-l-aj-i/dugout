@@ -11,9 +11,13 @@ import Loading from "./components/Loading";
 const CHANNELID = "C089LA005S8";
 
 const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("Failed to fetch Slack data");
-  return res.json();
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Failed to fetch Slack data");
+    return res.json();
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export default function App() {
