@@ -3,13 +3,13 @@
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 
-interface IUserProps {
-  id: string;
-  name: string;
-  image: string;
-}
-
-function Header({ user }: { user: IUserProps }) {
+// interface IUserProps {
+//   id: string;
+//   name: string;
+//   image: string;
+// }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function Header({ user }: { user: any }) {
   return (
     <header className="fixed top-0 mt-0 flex w-[100vw] items-center justify-around bg-white">
       {/* <div > */}

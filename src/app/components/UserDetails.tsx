@@ -5,8 +5,20 @@ import Image from "next/image";
 import { useLocalStorageValue } from "@react-hookz/web";
 
 // Updated Slack Fetcher to Use Next.js API Route
-export const slackPersistentFetcher = async (url: string, localStorage) => {
+export const slackPersistentFetcher = async (
+  url: string,
+  localStorage: {
+    value: {
+      data: string;
+      timestamp: number;
+    } | null;
+    set: (value: { data: string; timestamp: number }) => void;
+    remove?: () => void;
+    fetch?: () => void;
+  },
+) => {
   const { value, set } = localStorage;
+
   if (value) {
     const { data, timestamp } = value;
 
@@ -40,17 +52,22 @@ function UserDetails({
   userId,
   timestamp,
 }: {
-  userId: number;
-  timestamp: number;
+  userId: string;
+  timestamp: string;
 }) {
-  const localStorage = useLocalStorageValue(userId);
+  const localStorage = useLocalStorageValue<{
+    data: string;
+    timestamp: number;
+  }>(userId);
+
   const {
     data: userData,
     error: userError,
     isLoading: userIsLoading,
   } = useSWR(
     `api/user-details/?userId=${userId}`,
-    (url) => slackPersistentFetcher(url, localStorage),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (url) => slackPersistentFetcher(url, localStorage as any),
     {
       revalidateIfStale: false,
       revalidateOnFocus: false,
@@ -78,7 +95,7 @@ function UserDetails({
         <p className="font-bold">
           {userData?.user?.profile?.real_name || "Fetching"}
         </p>
-        <p>{formatTimestamp(timestamp)}</p>
+        <p>{formatTimestamp(Number(timestamp))}</p>
       </div>
     </div>
   );

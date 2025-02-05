@@ -3,16 +3,20 @@ import ThreadModal from "../components/ThreadModal";
 import UserDetails from "./UserDetails";
 import Renderer from "./Renderer";
 import BotDetails from "./BotDetails";
-function Card({
-  userInfo,
-  channelId,
-  replyCount,
-}: {
-  userInfo: number;
+
+interface ICardProps {
+  userInfo: {
+    subtype: string;
+    ts: string;
+    user: string;
+    text: string;
+  };
   channelId: string;
   replyCount: number;
-}) {
-  // console.log(userInfo);
+}
+
+function Card({ userInfo, channelId, replyCount }: ICardProps) {
+  // console.log(userInfo?.user);
 
   return (
     <div className="b mx-auto mb-5 w-1/2 rounded-lg p-6 shadow-lg transition-transform duration-300 hover:scale-105 max-[1000px]:w-[90%]">

@@ -6,10 +6,11 @@ import useSWR from "swr";
 import { SendMessage } from "./components/SendMessage";
 // import SlackEventsPage from "./components/realtime";
 import { useSession } from "next-auth/react";
+import Loading from "./components/Loading";
 
 const CHANNELID = "C089LA005S8";
 
-const fetcher = async (url) => {
+const fetcher = async (url: string) => {
   const res = await fetch(url);
   if (!res.ok) throw new Error("Failed to fetch Slack data");
   return res.json();
@@ -25,19 +26,41 @@ export default function App() {
   //   },
   // );
 
-  const { data } = useSWR("/api/conversation-history", fetcher);
-  const session = useSession();
+  const { data, error, isLoading } = useSWR(
+    "/api/conversation-history",
+    fetcher,
+  );
+  const { data: session } = useSession();
+
+  if (error) {
+    return <div>error</div>;
+  }
+
+  if (isLoading) {
+    return <Loading />;
+  }
+  // console.log(data.messages);
 
   return (
     <>
       <Header user={session?.user} />
-      {/* <pre>{JSON.stringify(session?.user, null, 2)}</pre> */}
+
+      <pre>{JSON.stringify(session?.user, null, 2)}</pre>
       {session?.user && <SendMessage user={session?.user} />}
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       {/* <SlackEventsPage /> */}
 
       {data?.messages?.map(
-        (userInfo, key: number) => (
+        (
+          userInfo: {
+            subtype: string;
+            ts: string;
+            user: string;
+            text: string;
+            reply_count: number;
+          },
+          key: number,
+        ) => (
           // userInfo.subtype == "bot_message" &&
           // !userInfo.subtype ? (
           <Card
