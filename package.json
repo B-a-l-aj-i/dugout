@@ -9,16 +9,28 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.10.0",
+    "@radix-ui/react-label": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.1",
     "@react-hookz/web": "^25.0.1",
+    "@slack/bolt": "^4.2.0",
+    "@slack/web-api": "^7.8.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "ky": "^1.7.4",
+    "lucide-react": "^0.474.0",
     "next": "15.1.6",
     "next-auth": "^5.0.0-beta.25",
     "react": "^19.0.0",
     "react-aria-components": "^1.6.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
     "react-markdown": "^9.0.3",
     "react-slack-renderer": "^0.0.15",
-    "swr": "^2.3.0"
+    "swr": "^2.3.1",
+    "tailwind-merge": "^3.0.1",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

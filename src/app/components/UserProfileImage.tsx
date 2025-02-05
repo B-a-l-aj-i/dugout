@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import Image from "next/image";
+// import Image from "next/image";
 import React from "react";
-import SlackImage from "../components/SlackImage";
+// import SlackImage from "../components/SlackImage";
 
 import { useEffect, useState } from "react";
 
@@ -34,7 +34,7 @@ function UserProfileImage({ imageUrl }) {
     return () => {
       if (imageSrc) URL.revokeObjectURL(imageSrc);
     };
-  }, [imageUrl]);
+  }, [imageUrl, imageSrc]);
 
   if (error) return <p>Error loading image</p>;
   if (!imageSrc) return <p>Loading...</p>;
