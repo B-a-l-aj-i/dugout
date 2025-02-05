@@ -49,7 +49,7 @@ export default function App() {
     <>
       <Header user={session?.user} />
 
-      <pre>{JSON.stringify(session?.user, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(session?.user, null, 2)}</pre> */}
       {session?.user && <SendMessage user={session?.user} />}
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       {/* <SlackEventsPage /> */}
