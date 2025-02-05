@@ -1,7 +1,7 @@
 "use client";
 import ThreadModal from "../components/ThreadModal";
 import UserDetails from "./UserDetails";
-// import Renderer from "./Renderer";
+import Renderer from "./Renderer";
 import BotDetails from "./BotDetails";
 
 interface ICardProps {
@@ -27,7 +27,7 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
       </div>
       <div>
         <pre className="overflow-auto whitespace-pre-wrap font-sans">
-          {/* <Renderer text={userInfo?.text} /> */}
+          <Renderer text={userInfo?.text} />
         </pre>
       </div>
       <ThreadModal

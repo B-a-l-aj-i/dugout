@@ -40,11 +40,11 @@ function Renderer({ text }: { text: string }) {
     }
     // Handle mentions (@username)
 
-    text = text?.replace(/@([A-Za-z0-9_]+)/g, (match, userName) => {
-      const name = JSON.parse(localStorage.getItem(userName) || "")?.data?.user
-        .real_name;
-      return name;
-    });
+    // text = text?.replace(/@([A-Za-z0-9_]+)/g, (match, userName) => {
+    //   const name = JSON.parse(localStorage.getItem(userName) || "")?.data?.user
+    //     .real_name;
+    //   return name;
+    // });
 
     // Handle emoji (e.g., :smile:)
     text = text?.replace(
