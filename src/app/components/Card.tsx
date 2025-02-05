@@ -21,7 +21,7 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
   return (
     <div className="b mx-auto mb-5 w-1/2 rounded-lg p-6 shadow-lg transition-transform duration-300 hover:scale-105 max-[1000px]:w-[90%]">
       <div className="flex-row gap-3">
-        {(userInfo.subtype == "bot_message" && (
+        {(userInfo?.subtype == "bot_message" && (
           <BotDetails userInfo={userInfo} />
         )) || <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />}
       </div>
