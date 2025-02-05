@@ -14,14 +14,12 @@ import {
 import { Input } from "@/components/ui/input";
 import useSWRMutation from "swr/mutation";
 
-// ✅ Define validation schema
 const formSchema = z.object({
   message: z
     .string()
     .min(2, { message: "Message must be at least 2 characters." }),
 });
 
-// ✅ Function to call our Next.js API route
 async function sendMessage(url, { arg }) {
   const response = await fetch(url, {
     method: "POST",
@@ -37,15 +35,11 @@ async function sendMessage(url, { arg }) {
 }
 
 export function SendMessage({ user }) {
-  //   console.log(user);
-  //   console.log(user?.name);
-  // ✅ Correctly initialize `useForm`
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: { message: "" },
   });
 
-  // ✅ Use SWR mutation with the correct API route
   const { trigger, isMutating } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_BASE_URL}/api/send-message`,
     sendMessage,
