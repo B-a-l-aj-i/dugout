@@ -13,6 +13,7 @@ function Header({ user }: { user: any }) {
   return (
     <header className="fixed top-0 mt-0 flex w-[100vw] items-center justify-around bg-white">
       {/* <div > */}
+
       <div>
         <h1 className="mb-4 text-4xl font-bold">Dugout</h1>
       </div>
