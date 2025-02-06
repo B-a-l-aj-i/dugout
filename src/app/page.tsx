@@ -43,17 +43,16 @@ export default function App() {
   if (isLoading) {
     return <Loading />;
   }
-  // console.log(data.messages);
+  // console.log(session?.user);
+  // console.log(data);
 
   return (
     <>
       <Header user={session?.user} />
-
       {/* <pre>{JSON.stringify(session?.user, null, 2)}</pre> */}
       {session?.user && <SendMessage user={session?.user} />}
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       {/* <SlackEventsPage /> */}
-
       {data?.messages?.map(
         (
           userInfo: {

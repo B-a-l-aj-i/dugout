@@ -3,6 +3,7 @@ import ThreadModal from "../components/ThreadModal";
 import UserDetails from "./UserDetails";
 import Renderer from "./Renderer";
 import BotDetails from "./BotDetails";
+import Reply from "./Reply";
 
 interface ICardProps {
   userInfo: {
@@ -16,7 +17,7 @@ interface ICardProps {
 }
 
 function Card({ userInfo, channelId, replyCount }: ICardProps) {
-  // console.log(userInfo?.user);
+  // console.log(userInfo);
 
   return (
     <div className="b mx-auto mb-5 w-1/2 rounded-lg p-6 shadow-lg transition-transform duration-300 hover:scale-105 max-[1000px]:w-[90%]">
@@ -27,14 +28,16 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
       </div>
       <div>
         <pre className="overflow-auto whitespace-pre-wrap font-sans">
-          <Renderer text={userInfo?.text} />
+          <Renderer text={userInfo?.text.replace("<", "").replace(">", "")} />
         </pre>
       </div>
+
       <ThreadModal
         replyCount={replyCount}
         channelId={channelId}
         timestamp={userInfo?.ts}
       />
+      <Reply timestamp={userInfo?.ts} />
     </div>
   );
 }

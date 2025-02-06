@@ -1,5 +1,5 @@
 "use client";
-
+//in page.tsx
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,6 +21,7 @@ const formSchema = z.object({
 });
 
 async function sendMessage(url, { arg }) {
+  console.log(arg);
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -79,7 +80,7 @@ export function SendMessage({ user }) {
         />
         <center>
           <Button type="submit" disabled={isMutating}>
-            {isMutating ? "Sending..." : "Submit"}
+            {isMutating ? "Sending..." : "Send"}
           </Button>
         </center>
       </form>

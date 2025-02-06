@@ -12,6 +12,7 @@
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-label": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-tooltip": "^1.1.7",
     "@react-hookz/web": "^25.0.1",
     "@slack/bolt": "^4.2.0",
     "@slack/web-api": "^7.8.0",
