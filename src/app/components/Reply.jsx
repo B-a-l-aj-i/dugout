@@ -112,7 +112,7 @@ function Reply({ timestamp }) {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mx-auto max-w-md space-y-4"
+            className="mx-auto mb-2 flex max-w-md gap-4"
           >
             <FormField
               control={form.control}
@@ -120,7 +120,11 @@ function Reply({ timestamp }) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="Write a message..." {...field} />
+                    <Input
+                      className="w-[15vw]"
+                      placeholder="Write a message..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

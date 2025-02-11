@@ -64,7 +64,7 @@ export function SendMessage({ user }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto max-w-md space-y-4"
+        className="mx-auto mb-2 flex max-w-md gap-4"
       >
         <FormField
           control={form.control}
@@ -72,7 +72,11 @@ export function SendMessage({ user }) {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Write a message..." {...field} />
+                <Input
+                  className="w-[25vw]"
+                  placeholder="Write a message..."
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
