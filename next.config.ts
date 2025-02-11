@@ -1,15 +1,20 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  images:{
+  logging: {
+    fetches: {
+      fullUrl: true,
+      hmrRefreshes: true,
+    },
+  },
+  images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "**"
-      }
-    ]
-  }
+        hostname: "**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

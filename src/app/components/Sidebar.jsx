@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -14,39 +14,17 @@ import {
 } from "@/components/ui/sidebar";
 import { UserContext } from "@/context/user";
 
-function SidebarFilter() {
-  const [loading, setLoading] = useState(true);
-  const [filteredItemsArray, setFilteredItemsArray] = useState([]);
-
-  useEffect(() => {
-    // Simulate a fetch operation with a delay
-    setTimeout(() => {
-      const itemsArray = [];
-
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
-        const real_name = JSON.parse(value)?.data?.user?.real_name;
-        const id = JSON.parse(value)?.data?.user?.id;
-        itemsArray.push({
-          real_name,
-          id,
-        });
-      }
-
-      const filteredItemsArray = itemsArray.filter(
-        (user) =>
-          user.real_name !== "Dugout" &&
-          user.real_name !== "Slackbot" &&
-          user.real_name,
-      );
-
-      setFilteredItemsArray(filteredItemsArray);
-      setLoading(false);
-    }, 2000);
-  }, []);
+function SidebarFilter({ members }) {
+  console.log(members);
+  const filteredItemsArray = members?.filter(
+    (user) =>
+      user.real_name !== "Dugout" &&
+      user.real_name !== "Slackbot" &&
+      user.real_name,
+  );
 
   const { user, setUser } = UserContext();
+  // console.log(user);
 
   return (
     <div className="fixed">
@@ -58,18 +36,28 @@ function SidebarFilter() {
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton onClick={() => setUser("")}>
+                    <SidebarMenuButton
+                      className="focus:bg-slate-300"
+                      onClick={() => setUser("")}
+                    >
                       All
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                  {filteredItemsArray.map((userInfo, key) => {
-                    if (loading) {
-                      return <div>Loading...</div>;
-                    }
+
+                  {filteredItemsArray?.map((userInfo, key) => {
                     return (
                       <SidebarMenuItem key={key}>
-                        <SidebarMenuButton onClick={() => setUser(userInfo.id)}>
-                          <span>{userInfo.real_name}</span>
+                        <SidebarMenuButton
+                          className="focus:bg-slate-200"
+                          onClick={() => setUser(userInfo.id)}
+                        >
+                          <div className="flex gap-2">
+                            <img
+                              className="rounded-2xl"
+                              src={userInfo?.profile.image_24}
+                            />
+                            <p>{userInfo.real_name}</p>
+                          </div>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                     );

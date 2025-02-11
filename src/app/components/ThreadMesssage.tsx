@@ -4,6 +4,7 @@ import useSWR from "swr";
 import Loading from "./Loading";
 import Renderer from "./Renderer";
 import { fetcher } from "@/utils/fetchUtils";
+import Image from "next/image";
 
 interface IThreadMEssage {
   channelId: string;
@@ -21,14 +22,33 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
   return (
     <div>
       {data?.messages?.map(
-        (userInfo: { user: string; ts: string; text: string }, key: number) => {
+        (
+          userInfo: { user: string; ts: string; text: string; files: [] },
+          key: number,
+        ) => {
           return (
             <div
               className={`mb-4 rounded-md border-2 p-4 ${key == 0 ? "m-0" : "m-4"}`}
               key={key}
             >
               <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />
-              <Renderer text={userInfo?.text} />
+              <pre>
+                <Renderer text={userInfo?.text} />
+              </pre>
+              {userInfo?.files?.map(
+                (image: { url_private: string }, key: number) => {
+                  return (
+                    <Image
+                      className="inline-flex gap-2"
+                      key={key}
+                      src={`/api/slack-image?image=${image?.url_private}`}
+                      alt="d"
+                      width={200}
+                      height={200}
+                    />
+                  );
+                },
+              )}
             </div>
           );
         },

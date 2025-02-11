@@ -29,24 +29,6 @@ function Renderer({ text }: { text: string }) {
 
     // Handle strikethrough: ~text~ => <del>text</del>
     text = text?.replace(/~(.*?)~/g, "<del>$1</del>");
-    {
-      // lists are handled using pre tag
-      // Handle unordered lists (- or * at the beginning of a line)
-      // text = text.replace(/^\s*[-*] (.+)$/gm, "<li>$1</li>");
-      // text = text.replace(/(<li>.*<\/li>)/g, "<ul>$1</ul>");
-      // // Handle ordered lists (1. 2. 3. at the beginning of a line)
-      // text = text.replace(/^\d+\. (.+)$/gm, "<li>$1</li>");
-      // text = text.replace(/(<li>.*<\/li>)/g, "<ol>$1</ol>");
-    }
-    // Handle mentions (@username)
-
-    // text = text?.replace(/@([A-Za-z0-9_]+)/g, (match, userName) => {
-    //   if (localStorage.getItem(userName)) {
-    //     const name = JSON.parse(localStorage.getItem(userName) || "")?.data
-    //       ?.user.real_name;
-    //     return name;
-    //   }
-    // });
 
     // Handle emoji (e.g., :smile:)
     text = text?.replace(

@@ -1,10 +1,12 @@
-// "use client";
+"use client";
 import React from "react";
 import Card from "./Card";
 import Loading from "./Loading";
 import useSWR from "swr";
 import { fetcher } from "@/utils/fetchUtils";
 import { UserContext } from "@/context/user";
+import { formatTimestamp } from "./UserDetails";
+import Day from "./Day";
 
 const CHANNELID = "C089LA005S8";
 
@@ -25,6 +27,11 @@ function Messages() {
   }
   // "U08B1JE9KHB";
 
+  function ts(t: number) {
+    return formatTimestamp(t).split(" ").splice(1).join(" ");
+  }
+  console.log(data?.messages);
+
   return (
     <div>
       {data?.messages?.map(
@@ -35,6 +42,7 @@ function Messages() {
             user: string;
             text: string;
             reply_count: number;
+            files: [];
           },
           key: number,
         ) =>
@@ -47,12 +55,19 @@ function Messages() {
             />
           )) ||
           (user == "" && (
-            <Card
-              key={key}
-              userInfo={userInfo}
-              channelId={CHANNELID}
-              replyCount={userInfo.reply_count || 0}
-            />
+            <div key={key}>
+              {(key == 0 ||
+                (key > 0 &&
+                  ts(Number(userInfo.ts)) !=
+                    ts(data?.messages[key - 1].ts))) && (
+                <Day timestamp={userInfo.ts} />
+              )}
+              <Card
+                userInfo={userInfo}
+                channelId={CHANNELID}
+                replyCount={userInfo.reply_count || 0}
+              />
+            </div>
           )),
       )}
     </div>
