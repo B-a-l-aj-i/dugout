@@ -4,7 +4,7 @@ import UserDetails from "./UserDetails";
 import Renderer from "./Renderer";
 import BotDetails from "./BotDetails";
 import Reply from "./Reply";
-import Image from "next/image";
+import Img from "./Img";
 
 interface ICardProps {
   userInfo: {
@@ -36,16 +36,7 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
 
       <div>
         {userInfo?.files?.map((image: { url_private: string }, key) => {
-          return (
-            <Image
-              className="inline-flex cursor-zoom-in gap-2 hover:w-[100%]"
-              key={key}
-              src={`/api/slack-image?image=${image?.url_private}`}
-              alt="d"
-              width={100}
-              height={100}
-            />
-          );
+          return <Img key={key} url_private={image?.url_private} />;
         })}
       </div>
 

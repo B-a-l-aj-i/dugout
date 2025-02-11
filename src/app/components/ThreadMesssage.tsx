@@ -4,7 +4,7 @@ import useSWR from "swr";
 import Loading from "./Loading";
 import Renderer from "./Renderer";
 import { fetcher } from "@/utils/fetchUtils";
-import Image from "next/image";
+import Img from "./Img";
 
 interface IThreadMEssage {
   channelId: string;
@@ -37,16 +37,7 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
               </pre>
               {userInfo?.files?.map(
                 (image: { url_private: string }, key: number) => {
-                  return (
-                    <Image
-                      className="inline-flex gap-2"
-                      key={key}
-                      src={`/api/slack-image?image=${image?.url_private}`}
-                      alt="d"
-                      width={200}
-                      height={200}
-                    />
-                  );
+                  return <Img key={key} url_private={image?.url_private} />;
                 },
               )}
             </div>
