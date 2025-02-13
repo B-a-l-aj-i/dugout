@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import useSWRMutation from "swr/mutation";
 import { Textarea } from "@/components/ui/textarea";
+import { SendHorizontal } from "lucide-react";
 
 const formSchema = z.object({
   message: z
@@ -65,7 +66,7 @@ export function SendMessage({ user }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto mb-2 mt-2 flex max-w-md items-center gap-4"
+        className="fixed bottom-4 left-[25%] flex items-center gap-4 bg-white max-sm:left-[5%]"
       >
         <FormField
           control={form.control}
@@ -74,7 +75,7 @@ export function SendMessage({ user }) {
             <FormItem>
               <FormControl>
                 <Textarea
-                  className="w-[25vw]"
+                  className="w-[50vw] max-sm:w-[90vw]"
                   placeholder="Write a message..."
                   {...field}
                 />
@@ -83,9 +84,14 @@ export function SendMessage({ user }) {
             </FormItem>
           )}
         />
-        <center>
-          <Button type="submit" disabled={isMutating}>
-            {isMutating ? "Sending..." : "Send"}
+        <center className="relative right-16">
+          <Button
+            className="bg-green-600 p-3"
+            type="submit"
+            disabled={isMutating}
+          >
+            <SendHorizontal strokeWidth={1} />{" "}
+            {/* {isMutating ? "Sending..." : "Send"} */}
           </Button>
         </center>
       </form>
