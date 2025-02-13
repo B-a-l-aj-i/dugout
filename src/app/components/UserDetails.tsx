@@ -1,8 +1,8 @@
 "use client";
 
 import useSWR from "swr";
-import Image from "next/image";
 import { useLocalStorageValue } from "@react-hookz/web";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 // Updated Slack Fetcher to Use Next.js API Route
 export const slackPersistentFetcher = async (
@@ -82,20 +82,16 @@ function UserDetails({
 
   return (
     <div className="mb-4 flex gap-3">
-      <Image
-        width={50}
-        height={30}
-        alt="Profile Pic"
-        className="rounded-full"
-        src={userData?.user?.profile?.image_48 || "/globe.svg"} //  Provide a fallback
-        unoptimized // Avoid Next.js image optimization for external images
-      />
+      <Avatar className="-z-10">
+        <AvatarImage src={userData?.user?.profile?.image_48 || "/globe.svg"} />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
       <div>
         {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
-        <p className="font-bold">
+        <p className="text-sm font-bold">
           {userData?.user?.profile?.real_name || "Fetching"}
         </p>
-        <p>{formatTimestamp(Number(timestamp))}</p>
+        <p className="text-xs">{formatTimestamp(Number(timestamp))}</p>
       </div>
     </div>
   );

@@ -20,8 +20,8 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import useSWRMutation from "swr/mutation";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   message: z
@@ -112,7 +112,7 @@ function Reply({ timestamp }) {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mx-auto mb-2 flex max-w-md gap-4"
+            className="mx-auto mb-2 flex max-w-md items-center gap-4"
           >
             <FormField
               control={form.control}
@@ -120,7 +120,7 @@ function Reply({ timestamp }) {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
+                    <Textarea
                       className="w-[15vw]"
                       placeholder="Write a message..."
                       {...field}

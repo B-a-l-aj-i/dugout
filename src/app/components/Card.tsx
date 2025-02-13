@@ -22,14 +22,14 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
   // console.log(userInfo?.files || "");
 
   return (
-    <div className="b mx-auto mb-11 w-1/2 rounded-lg p-4 shadow-md max-lg:w-[90%]">
+    <div className="mx-auto w-[90%] max-w-xl rounded-lg p-4">
       <div className="flex-row gap-3">
         {(userInfo?.subtype == "bot_message" && (
           <BotDetails userInfo={userInfo} />
         )) || <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />}
       </div>
       <div>
-        <pre className="overflow-auto whitespace-pre-wrap pb-7 font-sans">
+        <pre className="overflow-auto whitespace-pre-wrap font-sans">
           <Renderer text={userInfo?.text.replace("<", "").replace(">", "")} />
         </pre>
       </div>

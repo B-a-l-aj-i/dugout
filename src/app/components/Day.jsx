@@ -18,7 +18,7 @@ function day(timestamp) {
 
 function Day({ timestamp }) {
   return (
-    <div className="mx-auto mb-4 max-w-fit rounded-xl border pb-1 pl-3 pr-3 pt-1 text-center">
+    <div className="mx-auto my-2 max-w-fit rounded-xl border px-3 py-1 text-center text-[12px]">
       {day(timestamp)}
     </div>
   );

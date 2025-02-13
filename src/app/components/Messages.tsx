@@ -30,10 +30,12 @@ function Messages() {
   function ts(t: number) {
     return formatTimestamp(t).split(" ").splice(1).join(" ");
   }
-  // console.log(data?.messages);
+  console.log(data?.messages);
 
   return (
     <div>
+      {/* <Day timestamp={day} /> */}
+
       {data?.messages?.map(
         (
           userInfo: {

@@ -10,6 +10,7 @@ import {} from // Button,
 //   Modal,
 //   ModalOverlay,
 "react-aria-components";
+import { ChevronDown, ChevronRight } from "lucide-react";
 
 function ThreadModal({
   channelId,
@@ -25,13 +26,15 @@ function ThreadModal({
 
   return (
     <>
-      <button
-        className="mb-4 rounded-lg bg-slate-200 p-2"
+      <p
+        className="my-2 flex w-fit cursor-pointer items-center gap-2 rounded-lg text-sm"
         onClick={() => setOpen(!open)}
       >
+        {!open && <ChevronRight size={18} />}
+        {open && <ChevronDown size={18} />}
         {replyCount}
         {replyCount > 1 ? " Replies" : " Reply"}
-      </button>
+      </p>
 
       {open && (
         <div>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -24,15 +24,17 @@ function SidebarFilter({ members }) {
   );
 
   const { user, setUser } = UserContext();
-  // console.log(user);
 
   return (
-    <div className="fixed">
+    <div className="fixed z-10">
       <SidebarProvider>
         <Sidebar>
-          <SidebarContent className="pt-20">
+          <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel>Users</SidebarGroupLabel>
+              <SidebarGroupLabel className="flex justify-between">
+                <div>Users</div>
+                <main>{<SidebarTrigger className="text-black" />}</main>
+              </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
@@ -67,9 +69,7 @@ function SidebarFilter({ members }) {
             </SidebarGroup>
           </SidebarContent>
         </Sidebar>
-        <main>
-          <SidebarTrigger />
-        </main>
+        <main>{<SidebarTrigger className="absolute left-0 py-6" />}</main>
       </SidebarProvider>
     </div>
   );

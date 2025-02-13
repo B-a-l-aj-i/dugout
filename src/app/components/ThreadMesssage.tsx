@@ -20,7 +20,7 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
   if (error) return <div>error</div>;
   if (isLoading) return <Loading />;
 
-  // console.log(data?.messages);
+  console.log(data?.messages);
 
   return (
     <div>
@@ -38,7 +38,7 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
           return (
             key > 0 && (
               <div
-                className={`mb-4 rounded-md border-2 p-4 ${key == 0 ? "m-0" : "m-4"}`}
+                className={`mb-4 border-l-2 pl-4 ${key == 0 ? "m-0" : "m-4"}`}
                 key={key}
               >
                 {(userInfo?.subtype == "bot_message" && (
@@ -49,12 +49,27 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
                     timestamp={userInfo?.ts}
                   />
                 )}
-                <pre>
+                <pre className="overflow-auto whitespace-pre-wrap font-sans">
                   <Renderer text={userInfo?.text} />
                 </pre>
                 {userInfo?.files?.map(
-                  (image: { url_private: string }, key: number) => {
-                    return <Img key={key} url_private={image?.url_private} />;
+                  (
+                    image: { url_private: string; filetype: string },
+                    key: number,
+                  ) => {
+                    if (image?.filetype === "mp4") {
+                      return (
+                        <video key={key} controls>
+                          <source
+                            src={`https://files.slack.com/files-tmb/T089L9ZUDQC-F08D62SAMKN-a9b2a0d1a1/export-1739373733296.mp4`}
+                            type="video/mp4"
+                          />
+                          Your browser does not support the video tag.
+                        </video>
+                      );
+                    } else {
+                      return <Img key={key} url_private={image?.url_private} />;
+                    }
                   },
                 )}
               </div>

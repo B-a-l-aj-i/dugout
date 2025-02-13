@@ -1,18 +1,20 @@
 import React from "react";
 
 function Renderer({ text }: { text: string }) {
-  // console.log(text);
-
   // Function to process Slack-style formatting manually
   const formatSlackText = (text: string): string => {
     // Escape HTML to prevent accidental rendering
-    text = text
-      ?.replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-    // .replace(/"/g, "&quot;")
-    // .replace(/'/g, "&#39;");
+    // if (text.includes("https")) {
+    //   // Regex to detect standalone URLs and wrap them with <a> tags
+    //   const link = text.replace(
+    //     /(https?:\/\/[^|\s]+)/g,
+    //     '<a href="$1" target="_blank" class="text-blue-500 hover:underline">$1</a>',
+    //   );
 
+    //   return link;
+    // }
+
+    text = text?.replace(/</g, "&lt;")?.replace(/>/g, "&gt;");
     // Handle multi-line code blocks: ```code``` => <pre><code>code</code></pre>
     text = text?.replace(/```([\s\S]+?)```/g, (match, codeBlock) => {
       return `<pre><code>${codeBlock}</code></pre>`;
@@ -35,11 +37,6 @@ function Renderer({ text }: { text: string }) {
       /:([a-zA-Z0-9_]+):/g,
       '<img src="https://emoji.slack-edge.com/T00000000/$1.png" alt=":$1:" class="emoji" />',
     );
-
-    // Handle links (e.g., <https://example.com|Click Here>)
-    text = text?.replace(/<([^|]+)\|([^>]+)>/g, '<a href="$1">$2</a>');
-
-    // console.log(text);
 
     return text;
   };

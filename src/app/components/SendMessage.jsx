@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import useSWRMutation from "swr/mutation";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   message: z
@@ -64,7 +65,7 @@ export function SendMessage({ user }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto mb-2 flex max-w-md gap-4"
+        className="mx-auto mb-2 mt-2 flex max-w-md items-center gap-4"
       >
         <FormField
           control={form.control}
@@ -72,7 +73,7 @@ export function SendMessage({ user }) {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input
+                <Textarea
                   className="w-[25vw]"
                   placeholder="Write a message..."
                   {...field}

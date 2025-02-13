@@ -12,7 +12,7 @@ export default async function App() {
   const { members } = await res.json();
 
   return (
-    <div>
+    <div className="flex-col flex-wrap">
       {/* <pre>{JSON.stringify(members, null, 2)}</pre> */}
       <Sidebar members={members} />
       <Header user={session?.user} />

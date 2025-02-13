@@ -1,23 +1,19 @@
 import React from "react";
-import Image from "next/image";
 import { formatTimestamp } from "./UserDetails";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 function BotDetails({ userInfo }) {
   //   console.log(userInfo);
   return (
     <div className="mb-4 flex gap-3">
-      <Image
-        width={50}
-        height={30}
-        alt="Profile Pic"
-        className="rounded-full"
-        src={userInfo?.icons?.image_48 || "/globe.svg"} //  Provide a fallback
-        unoptimized // Avoid Next.js image optimization for external images
-      />
+      <Avatar className="-z-10">
+        <AvatarImage src={userInfo?.icons?.image_48 || "/globe.svg"} />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
       <div>
         {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
         <p className="font-bold">{userInfo?.username || "Fetching"}</p>
-        <p>{formatTimestamp(userInfo.ts)}</p>
+        <p className="text-xs">{formatTimestamp(userInfo.ts)}</p>
       </div>
     </div>
   );
