@@ -4,6 +4,7 @@ import useSWR from "swr";
 import Loading from "./Loading";
 import Renderer from "./Renderer";
 import { fetcher } from "@/utils/fetchUtils";
+import BotDetails from "./BotDetails";
 import Img from "./Img";
 
 interface IThreadMEssage {
@@ -19,28 +20,45 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
   if (error) return <div>error</div>;
   if (isLoading) return <Loading />;
 
+  // console.log(data?.messages);
+
   return (
     <div>
       {data?.messages?.map(
         (
-          userInfo: { user: string; ts: string; text: string; files: [] },
+          userInfo: {
+            user: string;
+            ts: string;
+            text: string;
+            subtype: string;
+            files: [];
+          },
           key: number,
         ) => {
           return (
-            <div
-              className={`mb-4 rounded-md border-2 p-4 ${key == 0 ? "m-0" : "m-4"}`}
-              key={key}
-            >
-              <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />
-              <pre>
-                <Renderer text={userInfo?.text} />
-              </pre>
-              {userInfo?.files?.map(
-                (image: { url_private: string }, key: number) => {
-                  return <Img key={key} url_private={image?.url_private} />;
-                },
-              )}
-            </div>
+            key > 0 && (
+              <div
+                className={`mb-4 rounded-md border-2 p-4 ${key == 0 ? "m-0" : "m-4"}`}
+                key={key}
+              >
+                {(userInfo?.subtype == "bot_message" && (
+                  <BotDetails userInfo={userInfo} />
+                )) || (
+                  <UserDetails
+                    userId={userInfo?.user}
+                    timestamp={userInfo?.ts}
+                  />
+                )}
+                <pre>
+                  <Renderer text={userInfo?.text} />
+                </pre>
+                {userInfo?.files?.map(
+                  (image: { url_private: string }, key: number) => {
+                    return <Img key={key} url_private={image?.url_private} />;
+                  },
+                )}
+              </div>
+            )
           );
         },
       )}

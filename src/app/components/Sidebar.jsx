@@ -15,7 +15,7 @@ import {
 import { UserContext } from "@/context/user";
 
 function SidebarFilter({ members }) {
-  console.log(members);
+  // console.log(members);
   const filteredItemsArray = members?.filter(
     (user) =>
       user.real_name !== "Dugout" &&

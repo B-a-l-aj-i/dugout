@@ -19,7 +19,7 @@ interface ICardProps {
 }
 
 function Card({ userInfo, channelId, replyCount }: ICardProps) {
-  console.log(userInfo?.files || "");
+  // console.log(userInfo?.files || "");
 
   return (
     <div className="b mx-auto mb-11 w-1/2 rounded-lg p-4 shadow-md max-lg:w-[90%]">

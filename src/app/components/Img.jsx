@@ -7,7 +7,6 @@ function Img({ url_private }) {
 
   return (
     <>
-      {/* Small Image (Thumbnail) */}
       <Image
         src={`/api/slack-image?image=${encodeURIComponent(url_private)}`}
         alt="Slack Image"
@@ -17,11 +16,10 @@ function Img({ url_private }) {
         onClick={() => setIsOpen(true)}
       />
 
-      {/* Modal for Enlarged Image */}
       {isOpen && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80"
-          onClick={() => setIsOpen(false)} // Close when clicking outside
+          onClick={() => setIsOpen(false)}
         >
           <div className="relative p-4">
             <Image
@@ -35,7 +33,7 @@ function Img({ url_private }) {
               className="absolute right-6 top-6 rounded-md bg-black p-2 text-3xl font-bold text-white"
               onClick={() => setIsOpen(false)}
             >
-              ✕
+              X
             </button>
           </div>
         </div>

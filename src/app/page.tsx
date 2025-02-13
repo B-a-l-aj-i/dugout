@@ -3,7 +3,6 @@ import { SendMessage } from "./components/SendMessage";
 import Messages from "./components/Messages";
 import Sidebar from "./components/Sidebar";
 import { auth } from "./auth";
-
 export default async function App() {
   const session = await auth();
 
