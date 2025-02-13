@@ -16,7 +16,7 @@ export default async function App() {
       {/* <pre>{JSON.stringify(members, null, 2)}</pre> */}
       <Sidebar members={members} />
       <Header user={session?.user} />
-      {<SendMessage user={session?.user} />}
+      {session?.user && <SendMessage user={session?.user} />}
       <Messages />
     </div>
   );
