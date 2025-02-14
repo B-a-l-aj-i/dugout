@@ -33,7 +33,15 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
       </div>
       <div>
         <pre className="overflow-auto whitespace-pre-wrap font-sans">
-          <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>
+          <ReactMarkdown
+            components={{
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              a: ({ node, ...props }) => (
+                <a {...props} className="text-blue-500 hover:underline" />
+              ),
+            }}
+            remarkPlugins={[remarkGfm, remarkEmoji]}
+          >
             {userInfo?.text}
           </ReactMarkdown>
         </pre>
