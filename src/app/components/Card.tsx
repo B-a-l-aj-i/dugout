@@ -1,10 +1,11 @@
 "use client";
 import ThreadModal from "../components/ThreadModal";
 import UserDetails from "./UserDetails";
-import Renderer from "./Renderer";
 import BotDetails from "./BotDetails";
 import Reply from "./Reply";
 import Img from "./Img";
+import React from "react";
+import ReactMarkdown from "react-markdown";
 
 interface ICardProps {
   userInfo: {
@@ -30,7 +31,7 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
       </div>
       <div>
         <pre className="overflow-auto whitespace-pre-wrap font-sans">
-          <Renderer text={userInfo?.text.replace("<", "").replace(">", "")} />
+          <ReactMarkdown>{userInfo?.text}</ReactMarkdown>
         </pre>
       </div>
 

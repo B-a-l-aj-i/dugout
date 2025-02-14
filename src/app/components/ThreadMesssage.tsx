@@ -2,10 +2,10 @@ import React from "react";
 import UserDetails from "./UserDetails";
 import useSWR from "swr";
 import Loading from "./Loading";
-import Renderer from "./Renderer";
 import { fetcher } from "@/utils/fetchUtils";
 import BotDetails from "./BotDetails";
 import Img from "./Img";
+import ReactMarkdown from "react-markdown";
 
 interface IThreadMEssage {
   channelId: string;
@@ -50,7 +50,7 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
                   />
                 )}
                 <pre className="overflow-auto whitespace-pre-wrap font-sans">
-                  <Renderer text={userInfo?.text} />
+                  <ReactMarkdown>{userInfo?.text}</ReactMarkdown>
                 </pre>
                 {userInfo?.files?.map(
                   (

@@ -22,11 +22,12 @@ import {
 } from "@/components/ui/form";
 import useSWRMutation from "swr/mutation";
 import { Textarea } from "@/components/ui/textarea";
+import { SendHorizontal } from "lucide-react";
 
 const formSchema = z.object({
   message: z
     .string()
-    .min(2, { message: "Message must be at least 2 characters." }),
+    .min(1, { message: "Message must be at least 2 characters." }),
 });
 
 async function sendMessage(url, { arg }) {
@@ -80,9 +81,9 @@ function Reply({ timestamp }) {
 
   return (
     <div className="ml-3 mt-0 cursor-pointer">
-      <TooltipProvider>
+      <TooltipProvider delayDuration={0.2}>
         <Tooltip>
-          {session?.user && (
+          {
             <TooltipTrigger>
               <svg
                 onClick={handleClick}
@@ -101,7 +102,7 @@ function Reply({ timestamp }) {
                 <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
               </svg>
             </TooltipTrigger>
-          )}
+          }
           <TooltipContent>
             <p>Click to Reply</p>
           </TooltipContent>
@@ -121,7 +122,7 @@ function Reply({ timestamp }) {
                 <FormItem>
                   <FormControl>
                     <Textarea
-                      className="w-[15vw]"
+                      className="w-[25vw] max-md:w-[50vw] max-sm:w-[70vw]"
                       placeholder="Write a message..."
                       {...field}
                     />
@@ -130,9 +131,14 @@ function Reply({ timestamp }) {
                 </FormItem>
               )}
             />
-            <center>
-              <Button type="submit" disabled={isMutating}>
-                {isMutating ? "Sending..." : "Send"}
+            <center className="relative right-16">
+              <Button
+                className="bg-green-600 p-3"
+                type="submit"
+                disabled={isMutating}
+              >
+                <SendHorizontal strokeWidth={1} />
+                {""}
               </Button>
             </center>
           </form>

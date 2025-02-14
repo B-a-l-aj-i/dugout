@@ -30,10 +30,11 @@ function Messages() {
   function ts(t: number) {
     return formatTimestamp(t).split(" ").splice(1).join(" ");
   }
-  console.log(data?.messages);
+  // console.log(data?.messages);
+  // console.log(user);
 
   return (
-    <div>
+    <div className="pb-20">
       {/* <Day timestamp={day} /> */}
 
       {data?.messages?.map(
@@ -44,6 +45,7 @@ function Messages() {
             user: string;
             text: string;
             reply_count: number;
+            username: string;
             files: [];
           },
           key: number,

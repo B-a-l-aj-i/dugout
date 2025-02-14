@@ -91,7 +91,6 @@ export function SendMessage({ user }) {
             disabled={isMutating}
           >
             <SendHorizontal strokeWidth={1} />{" "}
-            {/* {isMutating ? "Sending..." : "Send"} */}
           </Button>
         </center>
       </form>

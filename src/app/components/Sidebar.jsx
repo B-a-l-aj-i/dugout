@@ -47,6 +47,7 @@ function SidebarFilter({ members }) {
                   </SidebarMenuItem>
 
                   {filteredItemsArray?.map((userInfo, key) => {
+                    // console.log(userInfo);
                     return (
                       <SidebarMenuItem key={key}>
                         <SidebarMenuButton
