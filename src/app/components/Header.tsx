@@ -30,7 +30,7 @@ function Header({ user }: { user: any }) {
             />
             <button
               onClick={() => signOut()}
-              className="rounded-xl border px-2 py-1 text-sm transition-all hover:bg-black hover:text-white"
+              className="rounded-xl border px-2 py-1 text-xs transition-all hover:bg-black hover:text-white"
               style={{ transitionDelay: "0.3s" }}
             >
               {" "}
@@ -40,7 +40,7 @@ function Header({ user }: { user: any }) {
         )) || (
           <button
             onClick={() => signIn()}
-            className="rounded-xl border px-2 py-1 text-sm transition-all ease-in-out hover:bg-black hover:text-white"
+            className="rounded-xl border px-2 py-1 text-xs transition-all ease-in-out hover:bg-black hover:text-white"
             style={{ transitionDelay: "0.3s" }}
           >
             Sign In
