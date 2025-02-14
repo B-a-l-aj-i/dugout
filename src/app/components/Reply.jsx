@@ -110,7 +110,7 @@ function Reply({ timestamp }) {
       </TooltipProvider>
 
       {click &&
-        session?.user(
+        (
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
