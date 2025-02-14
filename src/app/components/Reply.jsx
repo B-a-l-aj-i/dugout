@@ -83,7 +83,7 @@ function Reply({ timestamp }) {
     <div className="ml-3 mt-0 cursor-pointer">
       <TooltipProvider delayDuration={0.2}>
         <Tooltip>
-          {
+          {session?.user && (
             <TooltipTrigger>
               <svg
                 onClick={handleClick}
@@ -102,48 +102,49 @@ function Reply({ timestamp }) {
                 <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
               </svg>
             </TooltipTrigger>
-          }
+          )}
           <TooltipContent>
             <p>Click to Reply</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
 
-      {click && (
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="mx-auto mb-2 flex max-w-md items-center gap-4"
-          >
-            <FormField
-              control={form.control}
-              name="message"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Textarea
-                      className="w-[25vw] max-md:w-[50vw] max-sm:w-[70vw]"
-                      placeholder="Write a message..."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <center className="relative right-16">
-              <Button
-                className="bg-green-600 p-3"
-                type="submit"
-                disabled={isMutating}
-              >
-                <SendHorizontal strokeWidth={1} />
-                {""}
-              </Button>
-            </center>
-          </form>
-        </Form>
-      )}
+      {click &&
+        session?.user(
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="mx-auto mb-2 flex max-w-md items-center gap-4"
+            >
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        className="w-[25vw] max-md:w-[50vw] max-sm:w-[70vw]"
+                        placeholder="Write a message..."
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <center className="relative right-16">
+                <Button
+                  className="bg-green-600 p-3"
+                  type="submit"
+                  disabled={isMutating}
+                >
+                  <SendHorizontal strokeWidth={1} />
+                  {""}
+                </Button>
+              </center>
+            </form>
+          </Form>,
+        )}
     </div>
   );
 }
