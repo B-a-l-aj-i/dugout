@@ -11,7 +11,7 @@ import Image from "next/image";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Header({ user }: { user: any }) {
   return (
-    <header className="sticky top-0 flex w-[100vw] items-center justify-around bg-white">
+    <header className="sticky top-0 flex w-[100vw] items-center justify-around bg-white py-2">
       <div>
         <h1 className="mb-4 text-4xl font-bold">Dugout</h1>
       </div>

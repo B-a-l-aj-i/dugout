@@ -26,53 +26,98 @@ function SidebarFilter({ members }) {
   const { user, setUser } = UserContext();
 
   return (
-    <div className="fixed z-10">
+    <div>
       <SidebarProvider>
         <Sidebar>
           <SidebarContent>
             <SidebarGroup>
-              <SidebarGroupLabel className="flex justify-between">
+              <SidebarGroupLabel>
                 <div>Users</div>
-                <main>{<SidebarTrigger className="text-black" />}</main>
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton
-                      className="focus:bg-slate-300"
+                      className="p-2 focus:bg-slate-300"
                       onClick={() => setUser("")}
                     >
                       All
                     </SidebarMenuButton>
                   </SidebarMenuItem>
 
-                  {filteredItemsArray?.map((userInfo, key) => {
-                    // console.log(userInfo);
-                    return (
-                      <SidebarMenuItem key={key}>
-                        <SidebarMenuButton
-                          className="focus:bg-slate-200"
-                          onClick={() => setUser(userInfo.id)}
-                        >
-                          <div className="flex gap-2">
-                            <img
-                              className="rounded-2xl"
-                              src={userInfo?.profile.image_24}
-                            />
-                            <p>{userInfo.real_name}</p>
-                          </div>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    );
-                  })}
+                  {filteredItemsArray?.map((userInfo, key) => (
+                    <SidebarMenuItem key={key}>
+                      <SidebarMenuButton
+                        className="p-2 focus:bg-slate-200"
+                        onClick={() => setUser(userInfo.id)}
+                      >
+                        <div className="flex items-center gap-2">
+                          <img
+                            className="h-6 w-6 rounded-2xl"
+                            src={userInfo?.profile.image_24}
+                            alt="User Avatar"
+                          />
+                          <p>{userInfo.real_name}</p>
+                        </div>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
         </Sidebar>
-        <main>{<SidebarTrigger className="absolute left-0 py-6" />}</main>
+        <main>{<SidebarTrigger className="fixed top-2 z-10 py-6" />}</main>
       </SidebarProvider>
     </div>
+
+    // <div className="fixed z-10">
+    //   <SidebarProvider>
+    //     <Sidebar>
+    //       <SidebarContent>
+    //         <SidebarGroup>
+    //           <SidebarGroupLabel className="flex justify-between">
+    //             <div>Users</div>
+    //             <main>{<SidebarTrigger className="text-black" />}</main>
+    //           </SidebarGroupLabel>
+    //           <SidebarGroupContent>
+    //             <SidebarMenu>
+    //               <SidebarMenuItem>
+    //                 <SidebarMenuButton
+    //                   className="focus:bg-slate-300"
+    //                   onClick={() => setUser("")}
+    //                 >
+    //                   All
+    //                 </SidebarMenuButton>
+    //               </SidebarMenuItem>
+
+    //               {filteredItemsArray?.map((userInfo, key) => {
+    //                 // console.log(userInfo);
+    //                 return (
+    //                   <SidebarMenuItem key={key}>
+    //                     <SidebarMenuButton
+    //                       className="focus:bg-slate-200"
+    //                       onClick={() => setUser(userInfo.id)}
+    //                     >
+    //                       <div className="flex gap-2">
+    //                         <img
+    //                           className="rounded-2xl"
+    //                           src={userInfo?.profile.image_24}
+    //                         />
+    //                         <p>{userInfo.real_name}</p>
+    //                       </div>
+    //                     </SidebarMenuButton>
+    //                   </SidebarMenuItem>
+    //                 );
+    //               })}
+    //             </SidebarMenu>
+    //           </SidebarGroupContent>
+    //         </SidebarGroup>
+    //       </SidebarContent>
+    //     </Sidebar>
+    //     <main>{<SidebarTrigger className="absolute left-0 py-6" />}</main>
+    //   </SidebarProvider>
+    // </div>
   );
 }
 

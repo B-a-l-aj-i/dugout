@@ -11,13 +11,17 @@ export default async function App() {
   });
   const { members } = await res.json();
 
+  // console.log(members);
+
   return (
-    <div>
+    <div className="flex min-h-screen overflow-hidden">
       {/* <pre>{JSON.stringify(members, null, 2)}</pre> */}
       <Sidebar members={members} />
-      <Header user={session?.user} />
-      {<SendMessage user={session?.user} />}
-      <Messages />
+      <div>
+        <Header user={session?.user} />
+        <SendMessage user={session?.user} />
+        <Messages />
+      </div>
     </div>
   );
 }
