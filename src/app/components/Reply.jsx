@@ -109,42 +109,41 @@ function Reply({ timestamp }) {
         </Tooltip>
       </TooltipProvider>
 
-      {click &&
-        (
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="mx-auto mb-2 flex max-w-md items-center gap-4"
-            >
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Textarea
-                        className="w-[25vw] max-md:w-[50vw] max-sm:w-[70vw]"
-                        placeholder="Write a message..."
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <center className="relative right-16">
-                <Button
-                  className="bg-green-600 p-3"
-                  type="submit"
-                  disabled={isMutating}
-                >
-                  <SendHorizontal strokeWidth={1} />
-                  {""}
-                </Button>
-              </center>
-            </form>
-          </Form>,
-        )}
+      {click && (
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="mx-auto mb-2 flex max-w-md items-center gap-4"
+          >
+            <FormField
+              control={form.control}
+              name="message"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Textarea
+                      className="w-[25vw] max-md:w-[50vw] max-sm:w-[70vw]"
+                      placeholder="Write a message..."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <center className="relative right-16">
+              <Button
+                className="bg-green-600 p-3"
+                type="submit"
+                disabled={isMutating}
+              >
+                <SendHorizontal strokeWidth={1} />
+                {""}
+              </Button>
+            </center>
+          </form>
+        </Form>
+      )}
     </div>
   );
 }
