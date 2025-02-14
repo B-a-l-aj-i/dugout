@@ -14,7 +14,7 @@ export default async function App() {
   // console.log(members);
 
   return (
-    <div className="flex min-h-screen overflow-hidden">
+    <div className="flex min-h-screen">
       {/* <pre>{JSON.stringify(members, null, 2)}</pre> */}
       <Sidebar members={members} />
       <div>
