@@ -6,6 +6,8 @@ import Reply from "./Reply";
 import Img from "./Img";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm"; // For GitHub Flavored Markdown
+import remarkEmoji from "remark-emoji";
 
 interface ICardProps {
   userInfo: {
@@ -31,7 +33,9 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
       </div>
       <div>
         <pre className="overflow-auto whitespace-pre-wrap font-sans">
-          <ReactMarkdown>{userInfo?.text}</ReactMarkdown>
+          <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>
+            {userInfo?.text}
+          </ReactMarkdown>
         </pre>
       </div>
 
