@@ -19,7 +19,7 @@ export default async function App() {
       <Sidebar members={members} />
       <div>
         <Header user={session?.user} />
-        <SendMessage user={session?.user} />
+        {session?.user && <SendMessage user={session?.user} />}
         <Messages />
       </div>
     </div>
