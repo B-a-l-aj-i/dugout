@@ -2,6 +2,7 @@
 
 import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
+import Logo from "./Logo";
 
 // interface IUserProps {
 //   id: string;
@@ -12,8 +13,9 @@ import Image from "next/image";
 function Header({ user }: { user: any }) {
   return (
     <header className="sticky top-0 flex w-[100vw] items-center justify-around bg-white py-2">
-      <div>
-        <h1 className="mb-4 text-4xl font-bold">Dugout</h1>
+      <div className="flex gap-2">
+        <Logo />
+        <h1 className="mb-4 text-sm font-bold">Dugout</h1>
       </div>
       <div>
         {(user && (
@@ -28,7 +30,7 @@ function Header({ user }: { user: any }) {
             />
             <button
               onClick={() => signOut()}
-              className="rounded-xl border px-2 py-1 transition-all hover:bg-black hover:text-white"
+              className="rounded-xl border px-2 py-1 text-sm transition-all hover:bg-black hover:text-white"
               style={{ transitionDelay: "0.3s" }}
             >
               {" "}
@@ -38,7 +40,7 @@ function Header({ user }: { user: any }) {
         )) || (
           <button
             onClick={() => signIn()}
-            className="rounded-xl border px-2 py-1 transition-all ease-in-out hover:bg-black hover:text-white"
+            className="rounded-xl border px-2 py-1 text-sm transition-all ease-in-out hover:bg-black hover:text-white"
             style={{ transitionDelay: "0.3s" }}
           >
             Sign In

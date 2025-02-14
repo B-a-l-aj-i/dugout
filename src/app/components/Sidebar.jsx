@@ -67,7 +67,7 @@ function SidebarFilter({ members }) {
             </SidebarGroup>
           </SidebarContent>
         </Sidebar>
-        <main>{<SidebarTrigger className="fixed top-2 z-10 py-6" />}</main>
+        <main>{<SidebarTrigger className="fixed top-1 z-10" />}</main>
       </SidebarProvider>
     </div>
 
