@@ -9,6 +9,11 @@ import Video from "./Video";
 import rehypeRaw from "rehype-raw"; // 👈 Allows raw HTML in Markdown
 import { UsersContext } from "@/context/user";
 
+interface User {
+  id: string;
+  real_name: string;
+}
+
 interface IUserProps {
   userInfo: {
     subtype: string;
@@ -46,12 +51,13 @@ function Message({ userInfo }: IUserProps) {
               remarkPlugins={[remarkGfm, remarkEmoji]}
               rehypePlugins={[rehypeRaw]}
             >
-              {userInfo?.text?.includes("<@")
+              {/* {userInfo?.text?.includes("<@")
                 ? userInfo?.text.replace(/<@(\w+)>/g, (_, userId) => {
-                    const user = users.find((user) => user.id === userId);
-                    return user ? user.real_name : `<@${userId}>`;
+                    const user = users?.find((user) => user.id === userId);
+                    return user ? user?.real_name : `<@${userId}>`;
                   })
-                : userInfo?.text}
+                : userInfo?.text} */}
+              {userInfo?.text}
             </ReactMarkdown>
             {/* {userInfo?.text?.replace(/<@(\w+)>/g, (_, userId) => {
               const user = users.find((user) => user.id === userId);
