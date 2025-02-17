@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { Play } from "lucide-react";
 
 function Video({ url_private }: { url_private: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,10 +8,13 @@ function Video({ url_private }: { url_private: string }) {
   return (
     <div className="inline-flex cursor-pointer">
       <div
-        className="mb-4 ml-4 inline-flex cursor-pointer rounded-lg bg-black object-cover shadow-md transition-transform"
+        className="relative mb-4 ml-4 inline-flex cursor-pointer rounded-lg object-cover shadow-md transition-transform"
         onClick={() => setIsOpen(true)}
       >
-        <video width={100} height={100} className="rounded-lg">
+        <div className="absolute left-[40%] top-[40%] h-fit w-fit rounded-3xl bg-slate-100 bg-opacity-80 p-2">
+          <Play width={20} height={20} />
+        </div>
+        <video width={200} height={200} className="rounded-lg">
           <source
             src={`/api/slack-image?media=${encodeURIComponent(url_private)}`}
             type="video/mp4"
