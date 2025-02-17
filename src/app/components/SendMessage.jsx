@@ -56,7 +56,7 @@ export function SendMessage({ user }) {
         userName: user?.name,
         icon_url: user?.image,
       });
-      form.reset(); // Clear input after sending
+      form.reset();
     } catch (error) {
       console.error("Error sending message:", error);
     }

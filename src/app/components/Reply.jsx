@@ -80,7 +80,7 @@ function Reply({ timestamp }) {
   }
 
   return (
-    <div className="ml-3 mt-0 cursor-pointer">
+    <div className="mr-0 mt-0 cursor-pointer">
       <TooltipProvider delayDuration={0.2}>
         <Tooltip>
           {session?.user && (

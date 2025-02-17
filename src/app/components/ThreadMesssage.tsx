@@ -1,12 +1,8 @@
 import React from "react";
-import UserDetails from "./UserDetails";
 import useSWR from "swr";
 import Loading from "./Loading";
 import { fetcher } from "@/utils/fetchUtils";
-import BotDetails from "./BotDetails";
-import Img from "./Img";
-import ReactMarkdown from "react-markdown";
-import Video from "./Video";
+import Message from "./Message";
 
 interface IThreadMEssage {
   channelId: string;
@@ -39,42 +35,8 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
         ) => {
           return (
             key > 0 && (
-              <div
-                className={`mb-4 border-l-2 pl-4 ${key == 0 ? "m-0" : "m-4"}`}
-                key={key}
-              >
-                {(userInfo?.subtype == "bot_message" && (
-                  <BotDetails userInfo={userInfo} />
-                )) || (
-                  <UserDetails
-                    userId={userInfo?.user}
-                    timestamp={userInfo?.ts}
-                  />
-                )}
-                <pre className="overflow-auto whitespace-pre-wrap font-sans">
-                  <ReactMarkdown>{userInfo?.text}</ReactMarkdown>
-                </pre>
-                {userInfo?.attachments?.map((attachment: { blocks: [] }) =>
-                  attachment?.blocks?.map(
-                    (gif: { block_id: string; image_url: string }) => (
-                      <Img key={gif.block_id} url_private={gif.image_url} />
-                    ),
-                  ),
-                )}
-                {userInfo?.files?.map(
-                  (
-                    image: { url_private: string; filetype: string },
-                    key: number,
-                  ) => {
-                    if (image?.filetype === "mp4") {
-                      return (
-                        <Video key={key} url_private={image.url_private} />
-                      );
-                    } else {
-                      return <Img key={key} url_private={image?.url_private} />;
-                    }
-                  },
-                )}
+              <div className={`m-4 mb-4 border-l-2 pl-4`} key={key}>
+                <Message userInfo={userInfo} />
               </div>
             )
           );
