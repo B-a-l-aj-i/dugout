@@ -9,10 +9,10 @@ import Video from "./Video";
 import rehypeRaw from "rehype-raw"; // 👈 Allows raw HTML in Markdown
 import { UsersContext } from "@/context/user";
 
-interface User {
-  id: string;
-  real_name: string;
-}
+// interface User {
+//   id: string;
+//   real_name: string;
+// }
 
 interface IUserProps {
   userInfo: {
