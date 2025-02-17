@@ -26,7 +26,7 @@ interface IUserProps {
 }
 
 function Message({ userInfo }: IUserProps) {
-  const { users } = UsersContext();
+  //   const { users } = UsersContext();
   return (
     <div>
       <div className="flex-row gap-3">
