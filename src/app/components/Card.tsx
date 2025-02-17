@@ -8,6 +8,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm"; // For GitHub Flavored Markdown
 import remarkEmoji from "remark-emoji";
+import Video from "./Video";
 
 interface ICardProps {
   userInfo: {
@@ -52,33 +53,24 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
         {userInfo?.files?.map(
           (image: { url_private: string; filetype: string }, key) => {
             if (image?.filetype === "mp4") {
-              return (
-                <a
-                  key={key}
-                  href="https://files.slack.com/files-tmb/T089L9ZUDQC-F08D62SAMKN-a9b2a0d1a1/export-1739373733296.mp4"
-                >
-                  <video controls>
-                    <source
-                      src={`https://files.slack.com/files-tmb/T089L9ZUDQC-F08D62SAMKN-a9b2a0d1a1/export-1739373733296.mp4`}
-                      type="video/mp4"
-                    />
-                    Your browser does not support the video tag.
-                  </video>
-                </a>
-              );
+              return <Video key={key} url_private={image.url_private} />;
             } else {
               return <Img key={key} url_private={image?.url_private} />;
             }
           },
         )}
       </div>
-      {userInfo?.attachments?.map((attachment: { blocks: [] }) =>
+
+      {//gifs are rendered here
+      userInfo?.attachments?.map((attachment: { blocks: [] }) =>
         attachment?.blocks?.map(
           (gif: { block_id: string; image_url: string }) => (
             <Img key={gif.block_id} url_private={gif.image_url} />
           ),
         ),
-      )}
+      )
+      /////
+      }
       <ThreadModal
         replyCount={replyCount}
         channelId={channelId}

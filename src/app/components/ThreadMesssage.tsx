@@ -6,6 +6,7 @@ import { fetcher } from "@/utils/fetchUtils";
 import BotDetails from "./BotDetails";
 import Img from "./Img";
 import ReactMarkdown from "react-markdown";
+import Video from "./Video";
 
 interface IThreadMEssage {
   channelId: string;
@@ -67,18 +68,7 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
                   ) => {
                     if (image?.filetype === "mp4") {
                       return (
-                        <a
-                          key={key}
-                          href="https://files.slack.com/files-tmb/T089L9ZUDQC-F08D62SAMKN-a9b2a0d1a1/export-1739373733296.mp4"
-                        >
-                          <video controls>
-                            <source
-                              src={`https://files.slack.com/files-tmb/T089L9ZUDQC-F08D62SAMKN-a9b2a0d1a1/export-1739373733296.mp4`}
-                              type="video/mp4"
-                            />
-                            Your browser does not support the video tag.
-                          </video>
-                        </a>
+                        <Video key={key} url_private={image.url_private} />
                       );
                     } else {
                       return <Img key={key} url_private={image?.url_private} />;
