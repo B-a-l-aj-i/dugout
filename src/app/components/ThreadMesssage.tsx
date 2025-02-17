@@ -32,6 +32,7 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
             text: string;
             subtype: string;
             files: [];
+            attachments: [];
           },
           key: number,
         ) => {
@@ -52,14 +53,12 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
                 <pre className="overflow-auto whitespace-pre-wrap font-sans">
                   <ReactMarkdown>{userInfo?.text}</ReactMarkdown>
                 </pre>
-                {userInfo?.attachments?.[0]?.blocks?.[0]?.image_url && (
-                  <div>
-                    <Img
-                      url_private={
-                        userInfo?.attachments?.[0]?.blocks?.[0]?.image_url
-                      }
-                    />
-                  </div>
+                {userInfo?.attachments?.map((attachment: { blocks: [] }) =>
+                  attachment?.blocks?.map(
+                    (gif: { block_id: string; image_url: string }) => (
+                      <Img key={gif.block_id} url_private={gif.image_url} />
+                    ),
+                  ),
                 )}
                 {userInfo?.files?.map(
                   (

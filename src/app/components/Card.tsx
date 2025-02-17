@@ -72,13 +72,12 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
           },
         )}
       </div>
-
-      {userInfo?.attachments?.[0]?.blocks?.[0]?.image_url && (
-        <div>
-          <Img
-            url_private={userInfo?.attachments?.[0]?.blocks?.[0]?.image_url}
-          />
-        </div>
+      {userInfo?.attachments?.map((attachment: { blocks: [] }) =>
+        attachment?.blocks?.map(
+          (gif: { block_id: string; image_url: string }) => (
+            <Img key={gif.block_id} url_private={gif.image_url} />
+          ),
+        ),
       )}
       <ThreadModal
         replyCount={replyCount}
