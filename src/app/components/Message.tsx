@@ -7,7 +7,7 @@ import remarkGfm from "remark-gfm"; // For GitHub Flavored Markdown
 import remarkEmoji from "remark-emoji";
 import Video from "./Video";
 import rehypeRaw from "rehype-raw"; // 👈 Allows raw HTML in Markdown
-import { UsersContext } from "@/context/user";
+// import { UsersContext } from "@/context/user";
 
 // interface User {
 //   id: string;
