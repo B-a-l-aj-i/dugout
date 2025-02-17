@@ -20,7 +20,7 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
   if (error) return <div>error</div>;
   if (isLoading) return <Loading />;
 
-  console.log(data?.messages);
+  // console.log(data?.messages);
 
   return (
     <div>
@@ -52,6 +52,15 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
                 <pre className="overflow-auto whitespace-pre-wrap font-sans">
                   <ReactMarkdown>{userInfo?.text}</ReactMarkdown>
                 </pre>
+                {userInfo?.attachments?.[0]?.blocks?.[0]?.image_url && (
+                  <div>
+                    <Img
+                      url_private={
+                        userInfo?.attachments?.[0]?.blocks?.[0]?.image_url
+                      }
+                    />
+                  </div>
+                )}
                 {userInfo?.files?.map(
                   (
                     image: { url_private: string; filetype: string },
@@ -59,13 +68,18 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
                   ) => {
                     if (image?.filetype === "mp4") {
                       return (
-                        <video key={key} controls>
-                          <source
-                            src={`https://files.slack.com/files-tmb/T089L9ZUDQC-F08D62SAMKN-a9b2a0d1a1/export-1739373733296.mp4`}
-                            type="video/mp4"
-                          />
-                          Your browser does not support the video tag.
-                        </video>
+                        <a
+                          key={key}
+                          href="https://files.slack.com/files-tmb/T089L9ZUDQC-F08D62SAMKN-a9b2a0d1a1/export-1739373733296.mp4"
+                        >
+                          <video controls>
+                            <source
+                              src={`https://files.slack.com/files-tmb/T089L9ZUDQC-F08D62SAMKN-a9b2a0d1a1/export-1739373733296.mp4`}
+                              type="video/mp4"
+                            />
+                            Your browser does not support the video tag.
+                          </video>
+                        </a>
                       );
                     } else {
                       return <Img key={key} url_private={image?.url_private} />;

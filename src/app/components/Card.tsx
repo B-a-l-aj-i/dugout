@@ -16,6 +16,7 @@ interface ICardProps {
     user: string;
     text: string;
     files: [];
+    attachments: [];
   };
   channelId: string;
   replyCount: number;
@@ -48,11 +49,37 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
       </div>
 
       <div>
-        {userInfo?.files?.map((image: { url_private: string }, key) => {
-          return <Img key={key} url_private={image?.url_private} />;
-        })}
+        {userInfo?.files?.map(
+          (image: { url_private: string; filetype: string }, key) => {
+            if (image?.filetype === "mp4") {
+              return (
+                <a
+                  key={key}
+                  href="https://files.slack.com/files-tmb/T089L9ZUDQC-F08D62SAMKN-a9b2a0d1a1/export-1739373733296.mp4"
+                >
+                  <video controls>
+                    <source
+                      src={`https://files.slack.com/files-tmb/T089L9ZUDQC-F08D62SAMKN-a9b2a0d1a1/export-1739373733296.mp4`}
+                      type="video/mp4"
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                </a>
+              );
+            } else {
+              return <Img key={key} url_private={image?.url_private} />;
+            }
+          },
+        )}
       </div>
 
+      {userInfo?.attachments?.[0]?.blocks?.[0]?.image_url && (
+        <div>
+          <Img
+            url_private={userInfo?.attachments?.[0]?.blocks?.[0]?.image_url}
+          />
+        </div>
+      )}
       <ThreadModal
         replyCount={replyCount}
         channelId={channelId}

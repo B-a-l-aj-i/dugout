@@ -30,7 +30,7 @@ function Messages() {
   function ts(t: number) {
     return formatTimestamp(t).split(" ").splice(1).join(" ");
   }
-  console.log(data?.messages);
+  // console.log(data?.messages);
   // console.log(user);
 
   return (
@@ -47,6 +47,7 @@ function Messages() {
             reply_count: number;
             username: string;
             files: [];
+            attachments: [];
           },
           key: number,
         ) =>
