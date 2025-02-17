@@ -27,7 +27,7 @@ function SidebarFilter({ members }) {
 
   return (
     <div>
-      <SidebarProvider>
+      <SidebarProvider defaultOpen={false}>
         <Sidebar>
           <SidebarContent>
             <SidebarGroup>
@@ -67,7 +67,9 @@ function SidebarFilter({ members }) {
             </SidebarGroup>
           </SidebarContent>
         </Sidebar>
-        <main>{<SidebarTrigger className="fixed top-1 z-10" />}</main>
+        <main>
+          {<SidebarTrigger className="fixed top-1 z-10 bg-slate-50" />}
+        </main>
       </SidebarProvider>
     </div>
 

@@ -14,13 +14,15 @@ export default async function App() {
   // console.log(members);
 
   return (
-    <div className="flex min-h-screen">
-      {/* <pre>{JSON.stringify(members, null, 2)}</pre> */}
-      <Sidebar members={members} />
-      <div>
-        <Header user={session?.user} />
-        {session?.user && <SendMessage user={session?.user} />}
-        <Messages />
+    <div>
+      <Header user={session?.user} />
+      <div className="flex min-h-screen">
+        {/* <pre>{JSON.stringify(members, null, 2)}</pre> */}
+        <Sidebar members={members} />
+        <div className="mx-auto max-w-lg">
+          {session?.user && <SendMessage user={session?.user} />}
+          <Messages />
+        </div>
       </div>
     </div>
   );

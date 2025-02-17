@@ -21,7 +21,7 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
   // console.log(userInfo?.files || "");
 
   return (
-    <div className="mx-auto w-[90%] max-w-xl rounded-lg p-4">
+    <div className="my-4 p-4">
       <Message userInfo={userInfo} />
       <ThreadModal
         replyCount={replyCount}

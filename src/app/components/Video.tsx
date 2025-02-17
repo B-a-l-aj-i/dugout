@@ -8,7 +8,7 @@ function Video({ url_private }: { url_private: string }) {
   return (
     <div className="inline-flex cursor-pointer">
       <div
-        className="relative mb-4 ml-4 inline-flex cursor-pointer rounded-lg object-cover shadow-md transition-transform"
+        className="relative inline-flex cursor-pointer rounded-lg object-cover shadow-md transition-transform"
         onClick={() => setIsOpen(true)}
       >
         <div className="absolute left-[40%] top-[35%] h-fit w-fit rounded-3xl bg-slate-100 bg-opacity-80 p-2">
