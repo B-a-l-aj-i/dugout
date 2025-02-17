@@ -6,6 +6,8 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm"; // For GitHub Flavored Markdown
 import remarkEmoji from "remark-emoji";
 import Video from "./Video";
+import rehypeRaw from "rehype-raw"; // 👈 Allows raw HTML in Markdown
+import { UsersContext } from "@/context/user";
 
 interface IUserProps {
   userInfo: {
@@ -19,6 +21,7 @@ interface IUserProps {
 }
 
 function Message({ userInfo }: IUserProps) {
+  const { users } = UsersContext();
   return (
     <div>
       <div className="flex-row gap-3">
@@ -41,9 +44,19 @@ function Message({ userInfo }: IUserProps) {
                 ),
               }}
               remarkPlugins={[remarkGfm, remarkEmoji]}
+              rehypePlugins={[rehypeRaw]}
             >
-              {userInfo?.text}
+              {userInfo?.text?.includes("<@")
+                ? userInfo?.text.replace(/<@(\w+)>/g, (_, userId) => {
+                    const user = users.find((user) => user.id === userId);
+                    return user ? user.real_name : `<@${userId}>`;
+                  })
+                : userInfo?.text}
             </ReactMarkdown>
+            {/* {userInfo?.text?.replace(/<@(\w+)>/g, (_, userId) => {
+              const user = users.find((user) => user.id === userId);
+              return user ? user.real_name : `<@${userId}>`; // Replace if found, else keep original
+            })} */}
           </pre>
         </div>
 

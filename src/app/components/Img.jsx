@@ -10,7 +10,7 @@ function Img({ url_private }) {
         <div className="inline-flex cursor-pointer">
           <Zoom zoomMargin={50}>
             <img
-              className="inline-flex cursor-pointer rounded-lg bg-black object-cover shadow-md transition-transform"
+              className="ml-4 inline-flex cursor-pointer rounded-lg bg-black object-cover shadow-md transition-transform"
               src={`/api/slack-image?media=${encodeURIComponent(url_private)}`}
               alt="Slack Image"
               width={90}

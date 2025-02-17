@@ -8,25 +8,43 @@ interface IdContextType {
   setUser: (id: string) => void;
 }
 
+interface IdUsersContextType {
+  users: string[];
+  setUsers: (ids: string[]) => void;
+}
+
 // Create the context with a default value
 const userContext = createContext<IdContextType | undefined>(undefined);
+const usersContext = createContext<IdUsersContextType | undefined>(undefined);
 
 // Create a Provider component
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState<string>(""); // user is a string
+  const [users, setUsers] = useState<string[]>([]); // users is an array of strings
 
   return (
-    <userContext.Provider value={{ user, setUser }}>
-      {children}
-    </userContext.Provider>
+    <usersContext.Provider value={{ users, setUsers }}>
+      <userContext.Provider value={{ user, setUser }}>
+        {children}
+      </userContext.Provider>
+    </usersContext.Provider>
   );
 };
 
-// Custom hook for easier access
+// Custom hook for easier access to User context
 export const UserContext = () => {
   const context = useContext(userContext);
   if (!context) {
-    throw new Error("useIdContext must be used within an IdProvider");
+    throw new Error("useUserContext must be used within a UserProvider");
+  }
+  return context;
+};
+
+// Custom hook for easier access to Users context
+export const UsersContext = () => {
+  const context = useContext(usersContext);
+  if (!context) {
+    throw new Error("useUsersContext must be used within a UserProvider");
   }
   return context;
 };

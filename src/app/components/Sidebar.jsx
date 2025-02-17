@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -12,7 +12,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { UserContext } from "@/context/user";
+import { UserContext, UsersContext } from "@/context/user";
 
 function SidebarFilter({ members }) {
   // console.log(members);
@@ -22,6 +22,13 @@ function SidebarFilter({ members }) {
       user.real_name !== "Slackbot" &&
       user.real_name,
   );
+
+  const { users, setUsers } = UsersContext();
+
+  useEffect(() => {
+    setUsers(members);
+  }, []);
+  console.log(users);
 
   const { user, setUser } = UserContext();
 

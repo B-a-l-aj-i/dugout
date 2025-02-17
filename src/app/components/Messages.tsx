@@ -36,7 +36,7 @@ function Messages() {
   return (
     <div className="pb-20">
       {/* <Day timestamp={day} /> */}
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
       {data?.messages?.map(
         (
           userInfo: {
