@@ -21,7 +21,7 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
   if (error) return <div>error</div>;
   if (isLoading) return <Loading />;
 
-  // console.log(data?.messages);
+  console.log(data?.messages);
 
   return (
     <div>

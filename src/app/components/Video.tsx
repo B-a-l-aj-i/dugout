@@ -11,7 +11,7 @@ function Video({ url_private }: { url_private: string }) {
         className="relative mb-4 ml-4 inline-flex cursor-pointer rounded-lg object-cover shadow-md transition-transform"
         onClick={() => setIsOpen(true)}
       >
-        <div className="absolute left-[40%] top-[40%] h-fit w-fit rounded-3xl bg-slate-100 bg-opacity-80 p-2">
+        <div className="absolute left-[40%] top-[35%] h-fit w-fit rounded-3xl bg-slate-100 bg-opacity-80 p-2">
           <Play width={20} height={20} />
         </div>
         <video width={200} height={200} className="rounded-lg">
