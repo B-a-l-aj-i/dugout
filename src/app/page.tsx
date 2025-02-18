@@ -19,7 +19,7 @@ export default async function App() {
       <div className="flex min-h-screen">
         {/* <pre>{JSON.stringify(members, null, 2)}</pre> */}
         <Sidebar members={members} />
-        <div className="mx-auto max-w-lg">
+        <div className="mx-auto max-w-md">
           {session?.user && <SendMessage user={session?.user} />}
           <Messages />
         </div>

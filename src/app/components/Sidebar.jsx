@@ -28,7 +28,7 @@ function SidebarFilter({ members }) {
   useEffect(() => {
     setUsers(members);
   }, []);
-  console.log(users);
+  // console.log(members);
 
   const { user, setUser } = UserContext();
 

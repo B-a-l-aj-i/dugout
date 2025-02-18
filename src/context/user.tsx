@@ -8,9 +8,14 @@ interface IdContextType {
   setUser: (id: string) => void;
 }
 
+interface User {
+  id: string;
+  real_name: string;
+}
+
 interface IdUsersContextType {
-  users: string[];
-  setUsers: (ids: string[]) => void;
+  users: User[]; // Corrected from string[] to User[]
+  setUsers: (users: User[]) => void;
 }
 
 // Create the context with a default value
@@ -20,7 +25,7 @@ const usersContext = createContext<IdUsersContextType | undefined>(undefined);
 // Create a Provider component
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<string>(""); // user is a string
-  const [users, setUsers] = useState<string[]>([]); // users is an array of strings
+  const [users, setUsers] = useState<User[]>([]); // Corrected from string[] to User[]
 
   return (
     <usersContext.Provider value={{ users, setUsers }}>
