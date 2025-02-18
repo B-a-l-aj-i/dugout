@@ -66,7 +66,7 @@ export function SendMessage({ user }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="fixed bottom-4 left-[25%] flex items-center gap-4 bg-white max-sm:left-[5%]"
+        className="fixed bottom-4 left-[25%] z-10 flex items-center gap-4 bg-white max-sm:left-[5%]"
       >
         <FormField
           control={form.control}
