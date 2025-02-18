@@ -12,7 +12,7 @@ export default async function App() {
   const { members } = await res.json();
 
   // console.log(members);
-
+  // console.log(session);
   return (
     <div>
       <Header user={session?.user} />
@@ -20,7 +20,9 @@ export default async function App() {
         {/* <pre>{JSON.stringify(members, null, 2)}</pre> */}
         <Sidebar members={members} />
         <div className="mx-auto max-w-md">
-          {session?.user && <SendMessage user={session?.user} />}
+          {members.find(
+            (user: { id: string }) => user?.id === session?.user?.id,
+          )?.is_admin && <SendMessage user={session?.user} />}
           <Messages />
         </div>
       </div>
