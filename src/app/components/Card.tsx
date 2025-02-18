@@ -35,7 +35,7 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
 
   return (
     <div className="group relative my-3 rounded-lg p-4 max-sm:p-0">
-      <div className="absolute pl-[90%] opacity-0 group-hover:opacity-100">
+      <div className="absolute right-0 top-0 w-fit rounded-md border px-1 opacity-0 group-hover:opacity-100">
         <TooltipProvider delayDuration={0.2}>
           <Tooltip>
             <TooltipTrigger>
