@@ -4,11 +4,6 @@ import { signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Logo from "./Logo";
 
-// interface IUserProps {
-//   id: string;
-//   name: string;
-//   image: string;
-// }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Header({ user }: { user: any }) {
   return (
