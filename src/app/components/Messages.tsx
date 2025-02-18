@@ -52,12 +52,13 @@ function Messages() {
           key: number,
         ) =>
           (userInfo.user == user && (
-            <Card
-              key={key}
-              userInfo={userInfo}
-              channelId={CHANNELID}
-              replyCount={userInfo.reply_count || 0}
-            />
+            <div key={key}>
+              <Card
+                userInfo={userInfo}
+                channelId={CHANNELID}
+                replyCount={userInfo.reply_count || 0}
+              />
+            </div>
           )) ||
           (user == "" && (
             <div key={key}>

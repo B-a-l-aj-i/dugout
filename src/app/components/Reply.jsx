@@ -2,13 +2,6 @@
 import React, { useState } from "react";
 
 import { useSession } from "next-auth/react";
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -45,7 +38,7 @@ async function sendMessage(url, { arg }) {
   return data;
 }
 
-function Reply({ timestamp }) {
+function Reply({ click, timestamp }) {
   const { data: session } = useSession();
   // console.log(session);
   const form = useForm({
@@ -73,42 +66,8 @@ function Reply({ timestamp }) {
     }
   }
 
-  let [click, setClick] = useState(false);
-
-  function handleClick() {
-    setClick((p) => !p);
-  }
-
   return (
-    <div className="mr-0 mt-0 cursor-pointer">
-      <TooltipProvider delayDuration={0.2}>
-        <Tooltip>
-          {session?.user && (
-            <TooltipTrigger>
-              <svg
-                onClick={handleClick}
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="lucide lucide-reply"
-              >
-                <polyline points="9 17 4 12 9 7" />
-                <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
-              </svg>
-            </TooltipTrigger>
-          )}
-          <TooltipContent>
-            <p>Click to Reply</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-
+    <div className="mr-0 mt-4 cursor-pointer">
       {click && (
         <Form {...form}>
           <form

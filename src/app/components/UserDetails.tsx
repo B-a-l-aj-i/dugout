@@ -82,10 +82,11 @@ function UserDetails({
 
   return (
     <div className="mb-4 flex gap-3">
-      <Avatar className="-z-10">
+      <Avatar className="">
         <AvatarImage src={userData?.user?.profile?.image_48 || "/globe.svg"} />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
+
       <div>
         {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
         <p className="text-sm font-bold">

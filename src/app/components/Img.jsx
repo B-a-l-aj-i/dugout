@@ -13,7 +13,7 @@ function Img({ url_private }) {
               className="ml-2 mt-2 inline-flex cursor-pointer rounded-lg bg-black object-cover shadow-md transition-transform"
               src={`/api/slack-image?media=${encodeURIComponent(url_private)}`}
               alt="Slack Image"
-              width={200}
+              width={150}
             />
           </Zoom>
         </div>

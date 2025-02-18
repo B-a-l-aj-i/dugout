@@ -33,7 +33,7 @@ function SidebarFilter({ members }) {
   const { user, setUser } = UserContext();
 
   return (
-    <div>
+    <div className="z-40">
       <SidebarProvider defaultOpen={false}>
         <Sidebar>
           <SidebarContent>
@@ -75,7 +75,7 @@ function SidebarFilter({ members }) {
           </SidebarContent>
         </Sidebar>
         <main>
-          {<SidebarTrigger className="fixed top-1 z-10 bg-slate-50" />}
+          {<SidebarTrigger className="fixed top-1 z-40 bg-slate-50" />}
         </main>
       </SidebarProvider>
     </div>

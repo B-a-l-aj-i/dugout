@@ -1,8 +1,15 @@
 "use client";
 import Reply from "./Reply";
 import ThreadModal from "../components/ThreadModal";
-import React from "react";
+import React, { useState } from "react";
 import Message from "./Message";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useSession } from "next-auth/react";
 
 interface ICardProps {
   userInfo: {
@@ -19,16 +26,54 @@ interface ICardProps {
 
 function Card({ userInfo, channelId, replyCount }: ICardProps) {
   // console.log(userInfo?.files || "");
+  const [click, setClick] = useState(false);
+
+  function handleClick() {
+    setClick((p) => !p);
+  }
+  const { data: session } = useSession();
 
   return (
-    <div className="my-4 p-4">
-      <Message userInfo={userInfo} />
-      <ThreadModal
-        replyCount={replyCount}
-        channelId={channelId}
-        timestamp={userInfo?.ts}
-      />
-      <Reply timestamp={userInfo?.ts} />
+    <div className="group relative my-3 rounded-lg p-4 max-sm:p-0">
+      <div className="absolute pl-[90%] opacity-0 group-hover:opacity-100">
+        <TooltipProvider delayDuration={0.2}>
+          <Tooltip>
+            <TooltipTrigger>
+              {session?.user && (
+                <svg
+                  onClick={handleClick}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="lucide lucide-reply cursor-pointer"
+                >
+                  <polyline points="9 17 4 12 9 7" />
+                  <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
+                </svg>
+              )}
+            </TooltipTrigger>
+
+            <TooltipContent>
+              <p>Click to Reply</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
+      <div>
+        <Message userInfo={userInfo} />
+        <ThreadModal
+          replyCount={replyCount}
+          channelId={channelId}
+          timestamp={userInfo?.ts}
+        />
+        <Reply click={click} timestamp={userInfo?.ts} />
+      </div>
     </div>
   );
 }

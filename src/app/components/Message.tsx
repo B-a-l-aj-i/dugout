@@ -82,7 +82,7 @@ function Message({ userInfo }: IUserProps) {
                 if (image?.filetype != "png" && image?.filetype != "jpg") {
                   return (
                     <div
-                      className="m-2 flex items-center justify-between rounded-md border border-blue-400 p-2 hover:border-blue-300"
+                      className="m-2 flex w-[50%] items-center justify-between rounded-md border border-blue-400 p-2 hover:border-blue-300"
                       key={key}
                     >
                       <div className="flex items-center">
