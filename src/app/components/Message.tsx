@@ -60,12 +60,7 @@ function Message({ userInfo }: IUserProps) {
                       : `<@${userId}>`;
                   })
                 : userInfo?.text}
-              {/* {userInfo?.text} */}
             </ReactMarkdown>
-            {/* {userInfo?.text?.replace(/<@(\w+)>/g, (_, userId) => {
-              const user = users.find((user) => user.id === userId);
-              return user ? user.real_name : `<@${userId}>`; // Replace if found, else keep original
-            })} */}
           </pre>
         </div>
 
