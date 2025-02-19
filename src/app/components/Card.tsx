@@ -36,11 +36,16 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
   return (
     <div className="group relative my-3 rounded-lg p-4 max-sm:p-0">
       {session?.user && (
-        <div className="absolute right-0 top-0 w-fit rounded-md border px-1 opacity-0 group-hover:opacity-100">
+        <div className="absolute right-0 top-0 flex w-fit gap-3 rounded-md border px-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div>🔥</div>
+          <div>👍</div>
+          <div>👎</div>
+          <div>✅</div>
+
           <TooltipProvider delayDuration={0.2}>
             <Tooltip>
               <TooltipTrigger>
-                (
+                {/* ( */}
                 <svg
                   onClick={handleClick}
                   xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +62,7 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
                   <polyline points="9 17 4 12 9 7" />
                   <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
                 </svg>
-                )
+                {/* ) */}
               </TooltipTrigger>
 
               <TooltipContent>

@@ -35,7 +35,7 @@ function Header({ user }: { user: any }) {
         )) || (
           <button
             onClick={() => signIn()}
-            className="rounded-xl border px-2 py-1 text-xs transition-all ease-in-out hover:bg-black hover:text-white"
+            className="duration-600 rounded-xl border px-2 py-1 text-xs transition-colors hover:bg-black hover:text-white"
             style={{ transitionDelay: "0.3s" }}
           >
             Sign In
