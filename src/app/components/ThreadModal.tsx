@@ -30,7 +30,11 @@ function ThreadModal({
 
       {open && (
         <div>
-          <ThreadMesssage channelId={channelId} timestamp={timestamp} />
+          <ThreadMesssage
+            limit={false}
+            channelId={channelId}
+            timestamp={timestamp}
+          />
         </div>
       )}
     </>

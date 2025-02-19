@@ -82,7 +82,7 @@ function UserDetails({
 
   return (
     <div className="mb-4 flex gap-3">
-      <Avatar className="">
+      <Avatar>
         <AvatarImage src={userData?.user?.profile?.image_48 || "/globe.svg"} />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>

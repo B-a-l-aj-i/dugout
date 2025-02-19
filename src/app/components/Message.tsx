@@ -9,6 +9,7 @@ import Video from "./Video";
 import rehypeRaw from "rehype-raw";
 import { UsersContext } from "@/context/user";
 import { Download, File } from "lucide-react";
+import ThreadMesssage from "./ThreadMesssage";
 
 // interface User {
 //   id: string;
@@ -22,6 +23,7 @@ interface IUserProps {
     user: string;
     text: string;
     files: [];
+    reply_count: number;
     attachments: [];
   };
 }
@@ -36,34 +38,6 @@ function Message({ userInfo }: IUserProps) {
         )) || <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />}
       </div>
       <div className="ml-[10%]">
-        <div>
-          <pre className="overflow-auto whitespace-pre-wrap font-sans">
-            <ReactMarkdown
-              components={{
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                a: ({ node, ...props }) => (
-                  <a
-                    target="_blank"
-                    {...props}
-                    className="text-blue-500 hover:underline"
-                  />
-                ),
-              }}
-              remarkPlugins={[remarkGfm, remarkEmoji]}
-              rehypePlugins={[rehypeRaw]}
-            >
-              {userInfo?.text?.includes("<@")
-                ? userInfo?.text.replace(/<@(\w+)>/g, (_, userId) => {
-                    const user = users?.find((user) => user.id === userId);
-                    return user
-                      ? ` <span classname="text-yellow-500">@${user?.real_name}</span> `
-                      : `<@${userId}>`;
-                  })
-                : userInfo?.text}
-            </ReactMarkdown>
-          </pre>
-        </div>
-
         <div>
           {// images and videos ans also downloadable files
           userInfo?.files?.map(
@@ -121,6 +95,41 @@ function Message({ userInfo }: IUserProps) {
           /////
           }
         </div>
+
+        <div className="m-2">
+          <pre className="overflow-auto whitespace-pre-wrap font-sans">
+            <ReactMarkdown
+              components={{
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                a: ({ node, ...props }) => (
+                  <a
+                    target="_blank"
+                    {...props}
+                    className="text-blue-500 hover:underline"
+                  />
+                ),
+              }}
+              remarkPlugins={[remarkGfm, remarkEmoji]}
+              rehypePlugins={[rehypeRaw]}
+            >
+              {userInfo?.text?.includes("<@")
+                ? userInfo?.text.replace(/<@(\w+)>/g, (_, userId) => {
+                    const user = users?.find((user) => user.id === userId);
+                    return user
+                      ? ` <span classname="text-yellow-500">@${user?.real_name}</span> `
+                      : `<@${userId}>`;
+                  })
+                : userInfo?.text}
+            </ReactMarkdown>
+          </pre>
+        </div>
+        {userInfo?.reply_count > 0 && (
+          <ThreadMesssage
+            limit={true}
+            channelId="C089LA005S8"
+            timestamp={userInfo.ts}
+          />
+        )}
       </div>
     </div>
   );

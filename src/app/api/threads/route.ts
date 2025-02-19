@@ -5,7 +5,8 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const channelId = searchParams.get("channelId");
     const timestamp = searchParams.get("ts");
-
+    const limit = searchParams.get("limit");
+    console.log(limit);
     if (!channelId || !timestamp) {
       return NextResponse.json(
         { error: "Missing userId parameter" },
@@ -14,7 +15,7 @@ export async function GET(req: Request) {
     }
     // console.log(userId)
     const response = await fetch(
-      `https://slack.com/api/conversations.replies?channel=${channelId}&ts=${timestamp}&pretty=1`,
+      `https://slack.com/api/conversations.replies?channel=${channelId}&ts=${timestamp}&pretty=1${limit ? "&limit=1" : ""}`,
       {
         method: "GET",
         headers: {
