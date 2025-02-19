@@ -35,9 +35,9 @@ function ThreadMesssage({ channelId, timestamp, limit }: IThreadMEssage) {
       {limit && data?.messages?.[1] && (
         <div>
           {/* <pre>{JSON.stringify(data?.messages, null, 2)}</pre> */}
-          <p className="ml-auto mr-auto w-fit rounded-xl border p-1 px-2 text-xs text-orange-400">
+          {/* <p className="ml-auto mr-auto w-fit rounded-xl border p-1 px-2 text-xs text-orange-400">
             Latest Thread
-          </p>
+          </p> */}
           <div>
             <div>
               {// images and videos ans also downloadable files

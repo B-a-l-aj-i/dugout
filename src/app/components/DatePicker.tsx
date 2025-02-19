@@ -53,14 +53,17 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
   return (
     <div className="flex w-full items-center justify-center gap-3 py-1 max-sm:p-0 max-sm:text-xs">
       {/* Previous Week Button */}
-      <button onClick={scrollToPreviousWeek}>
-        <ChevronLeft size={20} />
+      <button
+        onClick={scrollToPreviousWeek}
+        className="rounded-full bg-gray-200 p-2 hover:bg-gray-300"
+      >
+        <ChevronLeft size={20} className="text-gray-700" />
       </button>
 
       {/* Date Picker */}
       <div
         ref={datePickerRef}
-        className="bg-muted flex w-full gap-3 overflow-x-auto scroll-smooth rounded-lg p-2 shadow-md max-sm:p-1"
+        className="flex w-full gap-3 overflow-x-auto scroll-smooth rounded-lg bg-white p-2 shadow-sm max-sm:p-1"
       >
         {dates.map((date, index) => (
           <div
@@ -69,22 +72,30 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
               getSelectedDay(date);
               setSelectedDate(date.date);
             }}
-            className={`flex min-w-fit cursor-pointer flex-col items-center justify-center rounded-xl px-3 py-2 text-sm font-medium transition-all max-sm:p-1 ${
+            className={`flex min-w-fit cursor-pointer flex-col items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-all max-sm:p-1 ${
               selectedDate === date.date
-                ? "scale-105 bg-black text-white shadow-lg" // Selected date styling
+                ? "bg-blue-600 text-white shadow-md" // Selected date styling
                 : date.isToday
-                  ? "bg-blue-500 text-white hover:bg-blue-600" // Today's date styling
-                  : "bg-white text-gray-700 hover:bg-gray-100" // Default styling
+                  ? "bg-blue-100 text-blue-600 hover:bg-blue-200" // Today's date styling
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200" // Default styling
             }`}
           >
-            {date.formatted}
+            <span className="text-xs font-semibold uppercase">
+              {date.formatted.split(",")[0]} {/* Weekday */}
+            </span>
+            <span className="text-sm font-bold">
+              {date.formatted.split(",")[1].trim()} {/* Date */}
+            </span>
           </div>
         ))}
       </div>
 
       {/* Next Week Button */}
-      <button onClick={scrollToNextWeek}>
-        <ChevronRight size={20} />
+      <button
+        onClick={scrollToNextWeek}
+        className="rounded-full bg-gray-200 p-2 hover:bg-gray-300"
+      >
+        <ChevronRight size={20} className="text-gray-700" />
       </button>
     </div>
   );
