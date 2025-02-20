@@ -18,15 +18,17 @@ function ThreadModal({
 
   return (
     <>
-      <p
-        className="my-4 flex w-fit cursor-pointer items-center gap-2 rounded-lg text-sm text-blue-400 hover:text-blue-300"
-        onClick={() => setOpen(!open)}
-      >
-        {!open && <ChevronRight className="text-black" size={18} />}
-        {open && <ChevronDown className="text-black" size={18} />}
-        {replyCount}
-        {replyCount > 1 ? " Replies" : " Reply"}
-      </p>
+      {replyCount > 1 && (
+        <p
+          className="my-4 flex w-fit cursor-pointer items-center gap-2 rounded-lg text-sm text-blue-400 hover:text-blue-300"
+          onClick={() => setOpen(!open)}
+        >
+          {!open && <ChevronRight className="text-black" size={18} />}
+          {open && <ChevronDown className="text-black" size={18} />}
+          {replyCount}
+          {replyCount > 1 ? " Replies" : " Reply"}
+        </p>
+      )}
 
       {open && (
         <div>

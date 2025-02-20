@@ -23,7 +23,7 @@ const formSchema = z.object({
 });
 
 async function sendMessage(url, { arg }) {
-  console.log(arg);
+  // console.log(arg);
   const response = await fetch(url, {
     method: "POST",
     headers: {

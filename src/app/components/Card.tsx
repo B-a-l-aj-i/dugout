@@ -10,6 +10,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useSession } from "next-auth/react";
+import Reactions from "./Reactions";
 
 interface ICardProps {
   userInfo: {
@@ -38,12 +39,12 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
   return (
     <div className="group relative my-3 rounded-lg p-4 max-sm:p-0">
       {session?.user && (
-        <div className="absolute right-0 top-0 flex w-fit gap-3 rounded-md border px-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <div>🔥</div>
-          <div>👍</div>
-          <div>👎</div>
-          <div>✅</div>
-
+        <div className="absolute right-0 top-0 flex w-fit cursor-pointer gap-3 rounded-md border px-1 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
+          {
+            // *****reactions are hadled
+            <Reactions timestamp={userInfo?.ts} />
+            // *****
+          }
           <TooltipProvider delayDuration={0.2}>
             <Tooltip>
               <TooltipTrigger>

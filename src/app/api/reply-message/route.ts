@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { channel, text, userName, icon_url, ts } = await req.json();
-    console.log(ts);
+    // console.log(ts);
     const response = await fetch("https://slack.com/api/chat.postMessage", {
       method: "POST",
       headers: {

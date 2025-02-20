@@ -126,6 +126,23 @@ function Message({ userInfo }: IUserProps) {
             </ReactMarkdown>
           </pre>
         </div>
+        {///handleing reactions
+
+        userInfo?.reactions?.map(
+          (reaction: { name: string; count: number }, key: number) => {
+            return (
+              <div
+                key={key}
+                className="mx-1 inline-flex items-center rounded-2xl border px-2"
+              >
+                <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>
+                  {":" + reaction?.name + ":"}
+                </ReactMarkdown>
+                <span className="p-1 text-xs">{reaction?.count}</span>
+              </div>
+            );
+          },
+        )}
         {userInfo?.reply_count > 0 && (
           <ThreadMesssage
             limit={true}
@@ -133,18 +150,6 @@ function Message({ userInfo }: IUserProps) {
             timestamp={userInfo.ts}
           />
         )}
-        {userInfo?.reactions?.map((reaction: { name: string }, key: number) => {
-          return (
-            <ReactMarkdown
-              key={key}
-              className="mx-1 inline-flex rounded-2xl border px-2"
-              remarkPlugins={[remarkGfm, remarkEmoji]}
-            >
-              {":" + reaction?.name + ":"}
-            </ReactMarkdown>
-            // <p key={Key}>{reaction?.name}</p>
-          );
-        })}
         {/* <pre>{JSON.stringify(userInfo?.reactions, null, 2)}</pre> */}
       </div>
     </div>

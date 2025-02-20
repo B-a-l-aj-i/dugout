@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import useSWR from "swr";
 import Loading from "./Loading";
@@ -11,6 +12,8 @@ import Video from "./Video";
 import rehypeRaw from "rehype-raw";
 import { Download, File } from "lucide-react";
 import { UsersContext } from "@/context/user";
+import Reactions from "./Reactions";
+import { useSession } from "next-auth/react";
 
 interface IThreadMEssage {
   channelId: string;
@@ -18,6 +21,8 @@ interface IThreadMEssage {
   limit: boolean;
 }
 function ThreadMesssage({ channelId, timestamp, limit }: IThreadMEssage) {
+  const { data: session } = useSession();
+
   const { users } = UsersContext();
 
   const { data, error, isLoading } = useSWR(
@@ -38,6 +43,17 @@ function ThreadMesssage({ channelId, timestamp, limit }: IThreadMEssage) {
           {/* <p className="ml-auto mr-auto w-fit rounded-xl border p-1 px-2 text-xs text-orange-400">
             Latest Thread
           </p> */}
+          <div className="group ml-auto w-fit">
+            {
+              /* ****reactions are hadled */
+              session?.user && (
+                <div className="flex cursor-pointer gap-3 rounded-lg border px-1 opacity-0 group-hover:opacity-100">
+                  <Reactions timestamp={data?.messages?.[1]?.ts} />
+                </div>
+              )
+              // *****
+            }
+          </div>
           <div>
             <div>
               {// images and videos ans also downloadable files
@@ -97,7 +113,6 @@ function ThreadMesssage({ channelId, timestamp, limit }: IThreadMEssage) {
               /////
               }
             </div>
-
             <div className="m-2">
               <pre className="overflow-auto whitespace-pre-wrap font-sans">
                 <ReactMarkdown
@@ -130,6 +145,22 @@ function ThreadMesssage({ channelId, timestamp, limit }: IThreadMEssage) {
                 </ReactMarkdown>
               </pre>
             </div>
+            {data?.messages?.[1]?.reactions?.map(
+              (reaction: { name: string; count: number }, key: number) => {
+                return (
+                  <div
+                    key={key}
+                    className="mx-1 inline-flex items-center rounded-2xl border px-2"
+                  >
+                    <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>
+                      {":" + reaction?.name + ":"}
+                    </ReactMarkdown>
+                    <span className="p-1 text-xs">{reaction?.count}</span>
+                  </div>
+                );
+              },
+            )}
+            {/* <pre>{JSON.stringify(data?.messages[1], null, 2)}</pre>, */}
           </div>
         </div>
       )}
@@ -152,6 +183,15 @@ function ThreadMesssage({ channelId, timestamp, limit }: IThreadMEssage) {
             return (
               key > 0 && (
                 <div className={`m-4 mb-4 border-l-2 pl-4`} key={key}>
+                  {
+                    /* ****reactions are hadled */
+                    session?.user && (
+                      <div className="ml-auto flex w-fit cursor-pointer gap-3 rounded-lg border px-1 opacity-0 group-hover:opacity-100">
+                        <Reactions timestamp={userInfo?.ts} />
+                      </div>
+                    )
+                    // *****
+                  }
                   <Message userInfo={userInfo} />
                 </div>
               )
