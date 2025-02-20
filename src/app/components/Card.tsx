@@ -19,6 +19,7 @@ interface ICardProps {
     text: string;
     files: [];
     reply_count: number;
+    reactions: [];
     attachments: [];
   };
   channelId: string;

@@ -143,6 +143,7 @@ function ThreadMesssage({ channelId, timestamp, limit }: IThreadMEssage) {
               text: string;
               subtype: string;
               files: [];
+              reactions: [];
               reply_count: number;
               attachments: [];
             },

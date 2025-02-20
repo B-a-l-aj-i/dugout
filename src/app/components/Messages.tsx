@@ -6,6 +6,7 @@ import useSWR from "swr";
 import { fetcher } from "@/utils/fetchUtils";
 import { UserContext } from "@/context/user";
 import SmoothDatePicker from "./DatePicker";
+import Image from "next/image";
 
 // import { formatTimestamp } from "./UserDetails";
 // import Day from "./Day";
@@ -51,7 +52,7 @@ function Messages() {
   // function ts(t: number) {
   //   return formatTimestamp(t).split(" ").splice(1).join(" ");
   // }
-  console.log(data?.messages);
+  // console.log(data?.messages);
   // console.log(user);
 
   return (
@@ -59,6 +60,12 @@ function Messages() {
       <div className="text-xs">
         <SmoothDatePicker getSelectedDay={selectedDay} />
       </div>
+      {data?.messages?.length == 0 && (
+        <div className="flex h-[50vh] w-full items-center justify-center">
+          <Image width={200} height={200} alt="NO MESSSAGES" src="/image.png" />
+        </div>
+      )}
+
       {/* <pre> {JSON.stringify(selectedDate)}</pre> */}
       <div className="pb-20">
         {/* <Day timestamp={day} /> */}
@@ -72,6 +79,7 @@ function Messages() {
               text: string;
               reply_count: number;
               username: string;
+              reactions: [];
               files: [];
               attachments: [];
             },

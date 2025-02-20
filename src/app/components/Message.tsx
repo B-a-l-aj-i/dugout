@@ -24,11 +24,14 @@ interface IUserProps {
     text: string;
     files: [];
     reply_count: number;
+    reactions: [];
     attachments: [];
   };
 }
 
 function Message({ userInfo }: IUserProps) {
+  console.log(userInfo);
+
   const { users } = UsersContext();
   return (
     <div>
@@ -130,6 +133,19 @@ function Message({ userInfo }: IUserProps) {
             timestamp={userInfo.ts}
           />
         )}
+        {userInfo?.reactions?.map((reaction: { name: string }, key: number) => {
+          return (
+            <ReactMarkdown
+              key={key}
+              className="mx-1 inline-flex rounded-2xl border px-2"
+              remarkPlugins={[remarkGfm, remarkEmoji]}
+            >
+              {":" + reaction?.name + ":"}
+            </ReactMarkdown>
+            // <p key={Key}>{reaction?.name}</p>
+          );
+        })}
+        {/* <pre>{JSON.stringify(userInfo?.reactions, null, 2)}</pre> */}
       </div>
     </div>
   );
