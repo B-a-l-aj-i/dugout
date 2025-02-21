@@ -117,7 +117,7 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
   };
 
   return (
-    <div className="mx-auto flex w-[90%] items-center justify-center gap-3 bg-white py-1 max-md:w-[100%] max-md:flex-col max-md:py-1">
+    <div className="flex items-center justify-end bg-white py-1 pr-2 max-md:w-[100%] max-md:flex-col max-md:py-1">
       {/* Previous Week Button */}
       <>
         <button
@@ -130,7 +130,7 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
         {/* Date Picker */}
         <div
           ref={datePickerRef}
-          className="flex w-full gap-3 overflow-x-auto scroll-smooth rounded-lg bg-white p-2 shadow-sm max-sm:p-1"
+          className="flex max-w-[70%] gap-3 overflow-x-auto scroll-smooth rounded-lg bg-white p-2 shadow-sm max-sm:p-1"
         >
           {dates.map((date, index) => (
             <div
@@ -172,7 +172,7 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
             <Button
               variant={"outline"}
               className={cn(
-                "w-fit justify-start text-left font-normal",
+                "w-[190px] justify-start text-left font-normal",
                 !date && "text-muted-foreground",
               )}
             >

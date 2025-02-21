@@ -57,7 +57,7 @@ function Messages() {
 
   return (
     <>
-      <div className="sticky top-[5%] z-50 text-xs">
+      <div className="sticky top-[6%] z-50 text-xs">
         <SmoothDatePicker getSelectedDay={selectedDay} />
       </div>
       {data?.messages?.length == 0 && (

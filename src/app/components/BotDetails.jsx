@@ -14,7 +14,7 @@ function BotDetails({ userInfo }) {
         {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
         <p className="font-bold">
           {userInfo?.username || "Fetching"}
-          <span className="mx-1 bg-slate-200 px-1 text-xs"> APP</span>
+          <span className="mx-1 rounded-md bg-slate-200 p-1 text-xs"> APP</span>
         </p>
 
         <p className="text-xs">{formatTimestamp(userInfo.ts)}</p>
