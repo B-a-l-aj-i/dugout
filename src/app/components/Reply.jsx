@@ -67,12 +67,12 @@ function Reply({ click, timestamp }) {
   }
 
   return (
-    <div className="mr-0 mt-4 cursor-pointer">
+    <div className="mx-auto mt-4 w-fit cursor-pointer">
       {click && (
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="mx-auto mb-2 flex max-w-md items-center gap-4"
+            className="mb-2 mt-5 flex max-w-md items-center gap-4"
           >
             <FormField
               control={form.control}
@@ -81,7 +81,7 @@ function Reply({ click, timestamp }) {
                 <FormItem>
                   <FormControl>
                     <Textarea
-                      className="w-[25vw] max-md:w-[50vw] max-sm:w-[70vw]"
+                      className="w-[35vw] max-md:w-[50vw] max-sm:w-[70vw]"
                       placeholder="Write a message..."
                       {...field}
                     />
@@ -97,7 +97,6 @@ function Reply({ click, timestamp }) {
                 disabled={isMutating}
               >
                 <SendHorizontal strokeWidth={1} />
-                {""}
               </Button>
             </center>
           </form>

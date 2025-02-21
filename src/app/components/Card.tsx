@@ -84,6 +84,7 @@ function Card({
           </TooltipProvider>
         </div>
       )}
+      <Reply click={click} timestamp={userInfo?.ts} />
       <div>
         {/* <ThreadModal
           replyCount={replyCount}
@@ -91,7 +92,6 @@ function Card({
           timestamp={userInfo?.ts}
         /> */}
         <Message userInfo={userInfo} />
-        <Reply click={click} timestamp={userInfo?.ts} />
       </div>
     </div>
   );
