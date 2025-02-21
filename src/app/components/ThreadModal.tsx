@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import ThreadMesssage from "./ThreadMesssage";
+// import ThreadMesssage from "./ThreadMesssage";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
 function ThreadModal({
-  channelId,
-  timestamp,
+  // channelId,
+  // timestamp,
   replyCount,
+  // ,
 }: {
-  channelId: string;
-  timestamp: string;
+  // channelId: string;
+  // timestamp: string;
   replyCount: number;
 }) {
   const [open, setOpen] = useState(false);
@@ -30,15 +31,11 @@ function ThreadModal({
         </p>
       )}
 
-      {open && (
+      {/* {open && (
         <div>
-          <ThreadMesssage
-            limit={false}
-            channelId={channelId}
-            timestamp={timestamp}
-          />
+          <ThreadMesssage channelId={channelId} timestamp={timestamp} />
         </div>
-      )}
+      )} */}
     </>
   );
 }

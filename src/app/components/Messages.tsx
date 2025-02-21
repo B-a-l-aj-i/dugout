@@ -40,7 +40,7 @@ function Messages() {
   if (isLoading) {
     return (
       <>
-        <div className="text-xs">
+        <div className="sticky top-[5%]">
           <SmoothDatePicker getSelectedDay={selectedDay} />
         </div>
         <Loading />
@@ -57,7 +57,7 @@ function Messages() {
 
   return (
     <>
-      <div className="text-xs">
+      <div className="sticky top-[5%] z-50 text-xs">
         <SmoothDatePicker getSelectedDay={selectedDay} />
       </div>
       {data?.messages?.length == 0 && (
@@ -67,7 +67,7 @@ function Messages() {
       )}
 
       {/* <pre> {JSON.stringify(selectedDate)}</pre> */}
-      <div className="pb-20">
+      <div className="mx-auto max-w-[70%] pb-20 max-md:max-w-[100%]">
         {/* <Day timestamp={day} /> */}
         {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
         {data?.messages?.map(
@@ -81,6 +81,7 @@ function Messages() {
               username: string;
               reactions: [];
               files: [];
+              parent_user_id: string;
               attachments: [];
             },
             key: number,

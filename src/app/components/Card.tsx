@@ -1,6 +1,6 @@
 "use client";
 import Reply from "./Reply";
-import ThreadModal from "../components/ThreadModal";
+// import ThreadModal from "../components/ThreadModal";
 import React, { useState } from "react";
 import Message from "./Message";
 import {
@@ -21,13 +21,19 @@ interface ICardProps {
     files: [];
     reply_count: number;
     reactions: [];
+    parent_user_id: string;
     attachments: [];
   };
   channelId: string;
   replyCount: number;
 }
 
-function Card({ userInfo, channelId, replyCount }: ICardProps) {
+function Card({
+  userInfo,
+  // ,
+  // channelId,
+  // replyCount
+}: ICardProps) {
   // console.log(userInfo?.files || "");
   const [click, setClick] = useState(false);
 
@@ -37,7 +43,7 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
   const { data: session } = useSession();
 
   return (
-    <div className="group relative my-3 rounded-lg p-4 max-sm:p-0">
+    <div className="group relative my-3 rounded-lg border-[1px] border-slate-200/50 p-4 max-sm:p-2">
       {session?.user && (
         <div className="absolute right-0 top-0 flex w-fit cursor-pointer gap-3 rounded-md border px-1 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
           {
@@ -76,12 +82,12 @@ function Card({ userInfo, channelId, replyCount }: ICardProps) {
         </div>
       )}
       <div>
-        <Message userInfo={userInfo} />
-        <ThreadModal
+        {/* <ThreadModal
           replyCount={replyCount}
           channelId={channelId}
           timestamp={userInfo?.ts}
-        />
+        /> */}
+        <Message userInfo={userInfo} />
         <Reply click={click} timestamp={userInfo?.ts} />
       </div>
     </div>

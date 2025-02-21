@@ -1,14 +1,14 @@
 import UserDetails from "./UserDetails";
 import BotDetails from "./BotDetails";
 import Img from "./Img";
-import React from "react";
+import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkEmoji from "remark-emoji";
 import Video from "./Video";
 import rehypeRaw from "rehype-raw";
 import { UsersContext } from "@/context/user";
-import { Download, File } from "lucide-react";
+import { ChevronDown, ChevronRight, Download, File } from "lucide-react";
 import ThreadMesssage from "./ThreadMesssage";
 
 // interface User {
@@ -24,23 +24,39 @@ interface IUserProps {
     text: string;
     files: [];
     reply_count: number;
+    parent_user_id: string;
     reactions: [];
     attachments: [];
   };
 }
 
 function Message({ userInfo }: IUserProps) {
-  console.log(userInfo);
+  // console.log(userInfo);
 
   const { users } = UsersContext();
+  const [open, setOpen] = useState(true);
+
   return (
     <div>
-      <div className="flex-row gap-3">
-        {(userInfo?.subtype == "bot_message" && (
-          <BotDetails userInfo={userInfo} />
-        )) || <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />}
-      </div>
-      <div className="ml-[10%]">
+      {/* <pre>{JSON.stringify(userInfo.subtype, null, 2)}</pre>
+      <pre>{JSON.stringify(userInfo.parent_user_id, null, 2)}</pre>
+      <pre>{JSON.stringify(userInfo.user, null, 2)}</pre> */}
+
+      {userInfo.subtype === "bot_message" ||
+      userInfo.user === userInfo.parent_user_id ? (
+        <div className="flex-row gap-3">
+          {
+            userInfo?.subtype === "bot_message" ? (
+              <BotDetails userInfo={userInfo} />
+            ) : null
+            // <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />
+          }
+        </div>
+      ) : (
+        <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />
+      )}
+
+      <div className="ml-[5%]">
         <div>
           {// images and videos ans also downloadable files
           userInfo?.files?.map(
@@ -50,10 +66,16 @@ function Message({ userInfo }: IUserProps) {
                 media_display_type: string;
                 name: string;
                 filetype: string;
+                file_access: string;
               },
               key: number,
             ) => {
-              if (image?.media_display_type === "video") {
+              if (
+                image.file_access == "visible" &&
+                image?.media_display_type === "video"
+              ) {
+                console.log(image.file_access);
+
                 return <Video key={key} url_private={image.url_private} />;
               } else {
                 if (image?.filetype != "png" && image?.filetype != "jpg") {
@@ -80,7 +102,11 @@ function Message({ userInfo }: IUserProps) {
                     </div>
                   );
                 } else {
-                  return <Img key={key} url_private={image?.url_private} />;
+                  return (
+                    image.file_access == "visible" && (
+                      <Img key={key} url_private={image?.url_private} />
+                    )
+                  );
                 }
               }
             },
@@ -143,15 +169,24 @@ function Message({ userInfo }: IUserProps) {
             );
           },
         )}
-        {userInfo?.reply_count > 0 && (
-          <ThreadMesssage
-            limit={true}
-            channelId="C089LA005S8"
-            timestamp={userInfo.ts}
-          />
-        )}
+
         {/* <pre>{JSON.stringify(userInfo?.reactions, null, 2)}</pre> */}
       </div>
+      {userInfo.reply_count > 0 && (
+        <p
+          className="my-4 flex w-fit cursor-pointer items-center gap-2 rounded-lg text-sm text-blue-400 hover:text-blue-300"
+          onClick={() => setOpen(!open)}
+        >
+          {!open && <ChevronRight className="text-black" size={18} />}
+          {open && <ChevronDown className="text-black" size={18} />}
+          {userInfo.reply_count}
+          {userInfo.reply_count > 1 ? " Replies" : " Reply"}
+        </p>
+      )}
+
+      {userInfo?.reply_count > 0 && open && (
+        <ThreadMesssage channelId="C089LA005S8" timestamp={userInfo.ts} />
+      )}
     </div>
   );
 }

@@ -15,7 +15,7 @@ export async function GET(req: Request) {
     }
     // console.log(userId)
     const response = await fetch(
-      `https://slack.com/api/conversations.replies?channel=${channelId}&ts=${timestamp}&pretty=1${limit ? "&limit=1" : ""}`,
+      `https://slack.com/api/conversations.replies?channel=${channelId}&ts=${timestamp}&pretty=1`,
       {
         method: "GET",
         headers: {
