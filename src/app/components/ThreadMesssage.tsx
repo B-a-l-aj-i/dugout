@@ -196,7 +196,10 @@ function ThreadMesssage({ channelId, timestamp }: IThreadMEssage) {
                   /* ****reactions are handled */
                   session?.user && (
                     <div className="ml-auto flex w-fit cursor-pointer gap-3 rounded-lg border px-1 opacity-0 group-hover:opacity-100">
-                      <Reactions timestamp={userInfo?.ts} />
+                      <Reactions
+                        reactions={userInfo?.reactions}
+                        timestamp={userInfo?.ts}
+                      />
                     </div>
                   )
                   // *****
