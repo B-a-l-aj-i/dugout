@@ -19,9 +19,9 @@ function Header({ user }: { user: any }) {
             <Image
               alt="profile pic"
               className="rounded-full"
-              width={50}
-              height={50}
-              src={user?.image}
+              width={25}
+              height={25}
+              src={user?.image || "/globle.svg"}
             />
             <button
               onClick={() => signOut()}
