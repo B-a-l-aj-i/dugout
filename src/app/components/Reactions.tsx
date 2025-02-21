@@ -1,14 +1,26 @@
 import React from "react";
 
-function Reactions({ timestamp }: { timestamp: string }) {
+function Reactions({
+  timestamp,
+  reactions,
+}: {
+  timestamp: string;
+  reactions: [];
+}) {
+  console.log(reactions);
+
   async function handleEmoji(emoji: string, timestamp: string) {
     // console.log(emoji);
     // console.log(timestamp);
+    const already_reacted = reactions?.find(
+      (a: { name: string }) => a?.name == emoji,
+    );
+    // console.log(already_reacted);
 
     try {
       // Send the emoji data to the API
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/add-reactions`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/${already_reacted ? "remove-reactions" : "add-reactions"}`,
         {
           method: "POST",
           headers: {
@@ -24,15 +36,14 @@ function Reactions({ timestamp }: { timestamp: string }) {
 
       // Handle API errors
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`API Error: ${errorData.error || "Unknown error"}`);
+        console.log(response.statusText);
       }
 
       // Log success
-      const data = await response.json();
-      console.log("Emoji reaction successful:", data);
+      // const data = await response.json();
+      // console.log("Emoji reaction successful:", data);
     } catch (error) {
-      console.error("Failed to handle emoji:", error);
+      console.error(error);
     }
   }
   const emojis = [

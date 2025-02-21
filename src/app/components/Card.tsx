@@ -45,10 +45,13 @@ function Card({
   return (
     <div className="group relative my-3 rounded-lg border-[1px] border-slate-200/50 p-4 max-sm:p-2">
       {session?.user && (
-        <div className="absolute right-0 top-0 flex w-fit cursor-pointer gap-3 rounded-md border px-1 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
+        <div className="absolute right-0 top-0 flex w-fit cursor-pointer gap-3 rounded-md border border-t-0 px-1 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
           {
             // *****reactions are hadled
-            <Reactions timestamp={userInfo?.ts} />
+            <Reactions
+              timestamp={userInfo?.ts}
+              reactions={userInfo?.reactions}
+            />
             // *****
           }
           <TooltipProvider delayDuration={0.2}>
