@@ -159,12 +159,12 @@ function Message({ userInfo }: IUserProps) {
             return (
               <div
                 key={key}
-                className="mx-1 inline-flex items-center rounded-2xl border px-2"
+                className="mx-1 inline-flex items-center rounded-2xl border px-1 text-[10px]"
               >
                 <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>
                   {":" + reaction?.name + ":"}
                 </ReactMarkdown>
-                <span className="p-1 text-xs">{reaction?.count}</span>
+                <span className="px-1">{reaction?.count}</span>
               </div>
             );
           },
@@ -186,7 +186,7 @@ function Message({ userInfo }: IUserProps) {
 
       {/* {userInfo?.reply_count > 0 && open && ( */}
       <div
-        className={`transition-all duration-500 ease-in-out ${
+        className={`overflow-hidden transition-all duration-500 ease-linear ${
           userInfo?.reply_count > 0 && open
             ? "max-h-fit opacity-100"
             : "max-h-0 opacity-0"
