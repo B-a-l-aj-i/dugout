@@ -184,9 +184,17 @@ function Message({ userInfo }: IUserProps) {
         </p>
       )}
 
-      {userInfo?.reply_count > 0 && open && (
+      {/* {userInfo?.reply_count > 0 && open && ( */}
+      <div
+        className={`transition-all duration-500 ease-in-out ${
+          userInfo?.reply_count > 0 && open
+            ? "max-h-fit opacity-100"
+            : "max-h-0 opacity-0"
+        }`}
+      >
         <ThreadMesssage channelId="C089LA005S8" timestamp={userInfo.ts} />
-      )}
+      </div>
+      {/* )} */}
     </div>
   );
 }
