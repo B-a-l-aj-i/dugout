@@ -34,6 +34,8 @@ function Message({ userInfo }: IUserProps) {
   // console.log(userInfo);
 
   const { users } = UsersContext();
+  // console.log(users);
+
   const [open, setOpen] = useState(true);
   const [reactedUsers, setReactedUsers] = useState<number | null>(null); ///tool tip for reaction
 
@@ -166,7 +168,7 @@ function Message({ userInfo }: IUserProps) {
             reaction: { name: string; count: number; users: [] },
             key: number,
           ) => {
-            console.log(userInfo.reactions);
+            // console.log(userInfo.reactions);
 
             return (
               <div
@@ -180,15 +182,14 @@ function Message({ userInfo }: IUserProps) {
                   <span className="px-1">{reaction?.count}</span>
                   {reactedUsers == key && (
                     <div>
-                      {reaction.users.map((usr) => {
+                      {/* <pre>{JSON.stringify(reaction.users, null, 2)}</pre>
+                      <pre>{JSON.stringify(users, null, 2)}</pre> */}
+                      {reaction.users.map((usr, index) => {
                         const u = users?.find((user) => user.id == usr);
-                        // return u
-                        //   ? ` <span  classname="text-yellow-500">@${u?.real_name}</span> `
-                        //   : `<@${usr}>`;
                         return (
                           <div
-                            className="absolute left-0 top-6 z-50 h-fit min-w-full rounded-md bg-slate-800 px-2 py-4 text-white"
-                            key={key}
+                            className="absolute left-0 top-16 z-50 h-fit min-w-full rounded-md bg-slate-800 px-2 py-4 text-white"
+                            key={index}
                           >
                             <span className="w-fit">
                               {(u && u?.real_name) || usr}
