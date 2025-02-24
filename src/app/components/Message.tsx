@@ -35,6 +35,11 @@ function Message({ userInfo }: IUserProps) {
 
   const { users } = UsersContext();
   const [open, setOpen] = useState(true);
+  const [reactedUsers, setReactedUsers] = useState<number | null>(null); ///tool tip for reaction
+
+  function handleReactions(key: number) {
+    setReactedUsers((prevKey) => (prevKey === key ? null : key));
+  }
 
   return (
     <div>
@@ -74,11 +79,13 @@ function Message({ userInfo }: IUserProps) {
                 image.file_access == "visible" &&
                 image?.media_display_type === "video"
               ) {
-                console.log(image.file_access);
-
                 return <Video key={key} url_private={image.url_private} />;
               } else {
-                if (image?.filetype != "png" && image?.filetype != "jpg") {
+                if (
+                  image.file_access == "visible" &&
+                  image?.filetype != "png" &&
+                  image?.filetype != "jpg"
+                ) {
                   return (
                     <div
                       className="m-2 flex w-[50%] items-center justify-between rounded-md border border-blue-400 p-2 hover:border-blue-300 max-sm:w-[80%]"
@@ -155,16 +162,43 @@ function Message({ userInfo }: IUserProps) {
         {///handleing reactions
 
         userInfo?.reactions?.map(
-          (reaction: { name: string; count: number }, key: number) => {
+          (
+            reaction: { name: string; count: number; users: [] },
+            key: number,
+          ) => {
+            console.log(userInfo.reactions);
+
             return (
               <div
                 key={key}
-                className="mx-1 inline-flex items-center rounded-2xl border px-1 text-[10px]"
+                className="relative mx-1 inline-flex cursor-pointer items-center rounded-2xl border px-1 text-[10px] hover:border-blue-300"
               >
-                <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>
-                  {":" + reaction?.name + ":"}
-                </ReactMarkdown>
-                <span className="px-1">{reaction?.count}</span>
+                <div onClick={() => handleReactions(key)} className="flex">
+                  <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>
+                    {":" + reaction?.name + ":"}
+                  </ReactMarkdown>
+                  <span className="px-1">{reaction?.count}</span>
+                  {reactedUsers == key && (
+                    <div>
+                      {reaction.users.map((usr) => {
+                        const u = users?.find((user) => user.id == usr);
+                        // return u
+                        //   ? ` <span  classname="text-yellow-500">@${u?.real_name}</span> `
+                        //   : `<@${usr}>`;
+                        return (
+                          <div
+                            className="absolute left-0 top-6 z-50 h-fit min-w-full rounded-md bg-slate-800 px-2 py-4 text-white"
+                            key={key}
+                          >
+                            <span className="w-fit">
+                              {(u && u?.real_name) || usr}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               </div>
             );
           },

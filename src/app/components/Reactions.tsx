@@ -57,7 +57,10 @@ function Reactions({
       <div className="flex gap-3">
         {emojis.map((emoji, index) => (
           <div key={index} className="rounded-lg hover:bg-slate-100">
-            <span onClick={() => handleEmoji(emoji.name, timestamp)}>
+            <span
+              className="group"
+              onClick={() => handleEmoji(emoji.name, timestamp)}
+            >
               {emoji.emoji}
             </span>
           </div>
