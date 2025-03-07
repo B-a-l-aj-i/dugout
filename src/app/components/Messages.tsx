@@ -10,10 +10,19 @@ import Image from "next/image";
 
 // import { formatTimestamp } from "./UserDetails";
 // import Day from "./Day";
+interface Member {
+  real_name: string;
+  name: string;
+  id: string;
+}
+
+interface MessagesProps {
+  members: Member[];
+}
 
 const CHANNELID = "C089LA005S8";
 
-function Messages() {
+function Messages({ members }: MessagesProps) {
   const [oldest, setOldest] = useState<number>(
     Math.floor(new Date().setHours(0, 0, 0, 0) / 1000),
   );
@@ -52,14 +61,15 @@ function Messages() {
   // function ts(t: number) {
   //   return formatTimestamp(t).split(" ").splice(1).join(" ");
   // }
-  // console.log(data?.messages);
-  // console.log(user);
+  console.log(data?.messages);
+  console.log(user);
 
   return (
     <>
       <div className="sticky top-[6%] z-50 text-xs">
         <SmoothDatePicker getSelectedDay={selectedDay} />
       </div>
+
       {data?.messages?.length == 0 && (
         <div className="flex h-[50vh] w-full items-center justify-center">
           <Image width={200} height={200} alt="NO MESSSAGES" src="/image.png" />
@@ -68,6 +78,28 @@ function Messages() {
 
       {/* <pre> {JSON.stringify(selectedDate)}</pre> */}
       <div className="mx-auto max-w-[70%] pb-20 max-md:max-w-[100%]">
+        {members?.map(
+          (
+            user: { real_name: string; name: string; id: string },
+            key: number,
+          ) => {
+            if (
+              !data?.messages?.find(
+                (message: { user: string }) => message.user == user.id,
+              )
+            ) {
+              if (user.name != "slackbot" && user.name != "aj") {
+                return (
+                  <div className="inline-flex" key={key}>
+                    <span className="ml-2 rounded-md border pl-1 pr-1 text-orange-400">
+                      {user?.real_name}
+                    </span>
+                  </div>
+                );
+              }
+            }
+          },
+        )}
         {/* <Day timestamp={day} /> */}
         {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
         {data?.messages?.map(

@@ -21,9 +21,12 @@ export default async function App() {
   //   "expires": "2025-03-20T06:18:01.758Z",
   //   "access_token": "xoxp-8326339965828-8323731058851-8389782863075-11210026f11810559e34603b8b1d74f1"
   // }
+  console.log(members);
+
   return (
     <div>
       <Header user={session?.user} />
+      {/* <pre>{JSON.stringify(members, null, 2)}</pre> */}
       <div className="flex min-h-screen">
         {/* <pre>{JSON.stringify(session, null, 2)}</pre> */}
         <Sidebar members={members} />
@@ -31,7 +34,7 @@ export default async function App() {
           {session?.user?.email == "connectbalajidev@gmail.com" && (
             <SendMessage user={session?.user} />
           )}
-          <Messages />
+          <Messages members={members} />
         </div>
       </div>
     </div>
