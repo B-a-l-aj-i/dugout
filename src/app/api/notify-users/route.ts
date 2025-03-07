@@ -1,13 +1,10 @@
 import { NextResponse } from "next/server";
 
-const CHANNEL_ID = "C089LA005S8";
+const CHANNEL_ID = process.env.CHANNEL_ID;
 
-// Helper function to get current date in IST
 function getISTDate() {
-  // Create date in UTC
   const date = new Date();
-  // Convert to IST (UTC+5:30)
-  const istTime = date.getTime() + (5.5 * 60 * 60 * 1000); // Add 5 hours and 30 minutes
+  const istTime = date.getTime() + (5.5 * 60 * 60 * 1000);
   return new Date(istTime);
 }
 
@@ -67,6 +64,22 @@ export async function GET() {
     const historyData = await historyResponse.json();
     if (!historyData.ok) {
       throw new Error(`Failed to fetch conversation history: ${historyData.error}`);
+    }
+
+    // Check if bot already sent a notification today
+    const botMessageExists = historyData.messages.some((msg: { 
+      username?: string; 
+      bot_profile?: { name: string }; 
+    }) => msg.username === "Dugout Bot" || msg.bot_profile?.name === "Dugout Bot");
+
+    if (botMessageExists) {
+      return NextResponse.json({
+        success: true,
+        message: "Notification already sent today",
+        inactiveUsersCount: 0,
+        inactiveUsers: [],
+        messageResult: null
+      });
     }
 
     // Get users who sent messages today
