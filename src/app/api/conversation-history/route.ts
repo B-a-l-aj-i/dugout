@@ -62,7 +62,7 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const oldest = searchParams.get("oldest");
   const latest = searchParams.get("latest");
-  console.log("--------" + oldest);
+  // console.log("--------" + oldest);
   if (!req) {
     console.log(req);
   }
