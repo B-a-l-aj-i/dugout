@@ -10,10 +10,19 @@ import Image from "next/image";
 
 // import { formatTimestamp } from "./UserDetails";
 // import Day from "./Day";
+interface Member {
+  real_name: string;
+  name: string;
+  id: string;
+}
+
+interface MessagesProps {
+  members: Member[];
+}
 
 const CHANNELID = "C089LA005S8";
 
-function Messages({ members }) {
+function Messages({ members }: MessagesProps) {
   const [oldest, setOldest] = useState<number>(
     Math.floor(new Date().setHours(0, 0, 0, 0) / 1000),
   );
