@@ -4,7 +4,7 @@ export async function POST(req: Request) {
   try {
     // Extract data from the request body
     const { channel, name, timestamp } = await req.json();
-    console.log("Received data:", { channel, name, timestamp });
+    // console.log("Received data:", { channel, name, timestamp });
 
     // Call the Slack API
     const response = await fetch("https://slack.com/api/reactions.add", {

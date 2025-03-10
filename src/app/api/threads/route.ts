@@ -29,7 +29,7 @@ export async function GET(req: Request) {
     console.log("Slack API Response for user DEtails:", data);
     return NextResponse.json(data);
   } catch (error: unknown) {
-    console.error("Slack API Fetch Error:", error);
+    // console.error("Slack API Fetch Error:", error);
 
     let errorMessage = "Error fetching Slack data";
     let errorDetails = "";

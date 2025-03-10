@@ -19,7 +19,7 @@ export default async function App() {
   //     "image": "https://avatars.slack-edge.com/2025-01-20/8336513778497_6f16d7fd2dd2c07a48db_512.jpg"
   //   },
   //   "expires": "2025-03-20T06:18:01.758Z",
-  //   "access_token": "xoxp-8326339965828-8323731058851-8389782863075-11210026f11810559e34603b8b1d74f1"
+  //   "access_token": "*************************"
   // }
   console.log(members);
 

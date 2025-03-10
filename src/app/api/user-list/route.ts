@@ -14,7 +14,7 @@ export async function GET(req: Request) {
     });
 
     const data = await response.json();
-    console.log("Slack API Response for user DEtails:", data);
+    // console.log("Slack API Response for user DEtails:", data);
     return NextResponse.json(data);
   } catch (error) {
     console.error("Slack API Fetch Error:", error);
