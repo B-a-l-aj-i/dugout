@@ -7,6 +7,7 @@ import { fetcher } from "@/utils/fetchUtils";
 import { UserContext } from "@/context/user";
 import SmoothDatePicker from "./DatePicker";
 import Image from "next/image";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 // import { formatTimestamp } from "./UserDetails";
 // import Day from "./Day";
@@ -49,7 +50,7 @@ function Messages({ members }: MessagesProps) {
   if (isLoading) {
     return (
       <>
-        <div className="sticky top-[5%]">
+        <div className="z-90 sticky mx-auto max-w-[55%] text-xs max-md:max-w-[100%]">
           <SmoothDatePicker getSelectedDay={selectedDay} />
         </div>
         <Loading />
@@ -61,45 +62,54 @@ function Messages({ members }: MessagesProps) {
   // function ts(t: number) {
   //   return formatTimestamp(t).split(" ").splice(1).join(" ");
   // }
-  console.log(data?.messages);
-  console.log(user);
+  // console.log(data?.messages);
+  // console.log(user);
 
   return (
     <>
-      <div className="sticky top-[6%] z-50 text-xs">
+      <div className="z-90 sticky mx-auto max-w-[55%] text-xs max-md:max-w-[100%]">
         <SmoothDatePicker getSelectedDay={selectedDay} />
       </div>
 
-      {data?.messages?.length == 0 && (
-        <div className="flex h-[50vh] w-full items-center justify-center">
-          <Image width={200} height={200} alt="NO MESSSAGES" src="/image.png" />
-        </div>
-      )}
-
       {/* <pre> {JSON.stringify(selectedDate)}</pre> */}
-      <div className="mx-auto max-w-[70%] pb-20 max-md:max-w-[100%]">
-        {members?.map(
-          (
-            user: { real_name: string; name: string; id: string },
-            key: number,
-          ) => {
-            if (
-              !data?.messages?.find(
-                (message: { user: string }) => message.user == user.id,
-              )
-            ) {
-              if (user.name != "slackbot" && user.name != "aj") {
-                return (
-                  <div className="inline-flex" key={key}>
-                    <span className="ml-2 rounded-md border pl-1 pr-1 text-orange-400">
-                      {user?.real_name}
-                    </span>
-                  </div>
-                );
-              }
-            }
-          },
-        )}
+      <div className="mx-auto max-w-[55%] pb-20 max-md:max-w-[100%]">
+        <div>
+          <Alert>
+            <AlertTitle className="text-sm font-bold">Pending Users</AlertTitle>
+            <div>
+              {members?.map(
+                (
+                  user: { real_name: string; name: string; id: string },
+                  key: number,
+                ) => {
+                  if (
+                    !data?.messages?.find(
+                      (message: { user: string }) => message.user == user.id,
+                    )
+                  ) {
+                    if (
+                      user.id != process.env.ADMIN_USERS &&
+                      user.name != "slackbot" &&
+                      user.name != "aj"
+                    ) {
+                      return (
+                        <AlertDescription
+                          className="inline-flex items-center gap-2 px-2"
+                          key={key}
+                        >
+                          <span className="rounded-2xl bg-gray-100 px-2 py-1 text-orange-500">
+                            {user?.real_name}
+                          </span>
+                        </AlertDescription>
+                      );
+                    }
+                  }
+                },
+              )}
+            </div>
+            {/* <button>notify</button> */}
+          </Alert>
+        </div>
         {/* <Day timestamp={day} /> */}
         {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
         {data?.messages?.map(
@@ -144,6 +154,11 @@ function Messages({ members }: MessagesProps) {
             )),
         )}
       </div>
+      {data?.messages?.length == 0 && (
+        <div className="flex h-[50vh] w-full items-center justify-center">
+          <Image width={200} height={200} alt="NO MESSSAGES" src="/image.png" />
+        </div>
+      )}
     </>
   );
 }

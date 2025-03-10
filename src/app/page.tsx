@@ -15,15 +15,21 @@ export default async function App() {
   return (
     <div>
       <Header user={session?.user} />
-      <div className="flex min-h-screen">
-        <Sidebar members={members} />
-        <div className="mx-auto w-full px-4">
-          {session?.user?.email == "connectbalajidev@gmail.com" && (
-            <SendMessage user={session?.user} />
-          )}
-          <Messages members={members} />
+      {(session?.user && (
+        <div className="flex min-h-screen">
+          <Sidebar members={members} />
+          <div className="mx-auto w-full px-4">
+            {session?.user?.email == "connectbalajidev@gmail.com" && (
+              <SendMessage user={session?.user} />
+            )}
+            <Messages members={members} />
+          </div>
         </div>
-      </div>
+      )) || (
+        <div className="flex min-h-screen items-center justify-center">
+          Sign In to view contents
+        </div>
+      )}
     </div>
   );
 }

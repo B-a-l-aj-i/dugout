@@ -119,7 +119,7 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
   };
 
   return (
-    <div className="flex items-center justify-end bg-white py-1 pr-2 max-md:w-[100%] max-md:flex-col max-md:py-1">
+    <div className="flex items-center justify-center bg-white py-1 pr-2 max-md:w-[100%] max-md:flex-col max-md:py-1">
       {/* Previous Week Button */}
       <>
         <button
@@ -132,7 +132,7 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
         {/* Date Picker */}
         <div
           ref={datePickerRef}
-          className="flex max-w-[70%] gap-3 overflow-x-auto scroll-smooth rounded-lg bg-white p-2 shadow-sm max-sm:p-1"
+          className="flex max-w-[100%] gap-3 overflow-x-auto scroll-smooth rounded-lg bg-white p-2 shadow-sm"
         >
           {dates.map((date, index) => (
             <div
@@ -146,10 +146,10 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
                 selectedDate === date.date && selectedMonth === date.month
                   ? "bg-blue-600 text-white shadow-md"
                   : date.isMonday
-                  ? "bg-green-100 text-green-600 hover:bg-green-200"
-                  : date.isToday
-                  ? "bg-blue-100 text-blue-600 hover:bg-blue-200"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? "bg-green-100 text-green-600 hover:bg-green-200"
+                    : date.isToday
+                      ? "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               <span className="text-xs font-semibold uppercase">
@@ -170,14 +170,14 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
           <ChevronRight size={20} className="text-gray-700" />
         </button>
       </>
-      <div>
+      <div className="py-2">
         {/* Shadcn Calendar Popover */}
         <Popover>
           <PopoverTrigger asChild>
             <Button
               variant={"outline"}
               className={cn(
-                "w-[190px] justify-start text-left font-normal",
+                "w-[150px] justify-start text-left text-xs font-normal",
                 !date && "text-muted-foreground",
               )}
             >

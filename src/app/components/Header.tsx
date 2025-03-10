@@ -7,7 +7,7 @@ import Logo from "./Logo";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Header({ user }: { user: any }) {
   return (
-    <header className="sticky top-0 z-20 mx-auto flex w-[100vw] justify-around bg-white py-2">
+    <header className="sticky top-0 z-20 mx-auto flex w-[100vw] justify-around bg-white py-2 max-md:justify-between max-md:px-8">
       <div className="flex gap-2">
         <Logo />
         <h1 className="mb-4 text-sm font-bold">Dugout</h1>
