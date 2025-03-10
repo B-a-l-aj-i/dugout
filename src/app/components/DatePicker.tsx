@@ -18,6 +18,7 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
   const [date, setDate] = useState<Date>();
   const datePickerRef = useRef<HTMLDivElement>(null);
   const [selectedDate, setSelectedDate] = useState<number | null>(null);
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
 
   // Generate past 30 days including today
   const currentYear = new Date().getFullYear(); // Get the current year
@@ -47,6 +48,7 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
       oldest: Math.floor(date.getTime() / 1000),
       latest: Math.floor(date.getTime() / 1000) + 86399, // 11:59 PM
       isToday: date.toDateString() === new Date().toDateString(),
+      isMonday: date.getDay() === 1, // Check if the date is a Monday
     };
   });
 
@@ -57,7 +59,8 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
       const lastIndex = dates.length - 1; // Today's index
       const scrollPosition = lastIndex * 100;
       datePicker.scrollTo({ left: scrollPosition, behavior: "smooth" });
-      setSelectedDate(dates[lastIndex].timestamp);
+      setSelectedDate(dates[lastIndex].date);
+      setSelectedMonth(dates[lastIndex].month);
       getSelectedDay(dates[lastIndex]); // Automatically set today's date
     }
   }, []);
@@ -73,8 +76,6 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
 
   // Handle date selection from shadcn Calendar
   const handleCalendarDateSelect = (selectedDate: Date | undefined) => {
-    console.log(selectedDate?.getDate(), selectedDate?.getMonth());
-
     if (selectedDate) {
       setDate(selectedDate);
 
@@ -100,7 +101,7 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
         // Scroll to selected date and center it
         const datePicker = datePickerRef.current;
         if (datePicker) {
-          const itemWidth = 90; // Assuming each date item is ~100px wide
+          const itemWidth = 90;
           const scrollPosition =
             selectedIndex * itemWidth -
             datePicker.clientWidth / 2 +
@@ -109,6 +110,7 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
           datePicker.scrollTo({ left: scrollPosition, behavior: "smooth" });
         }
         setSelectedDate(selectedDate.getDate());
+        setSelectedMonth(selectedDate.getMonth());
       } else {
         alert("Selected date is outside the current range.");
         console.warn("Selected date is outside the current range.");
@@ -138,13 +140,16 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
               onClick={() => {
                 getSelectedDay(date);
                 setSelectedDate(date.date);
+                setSelectedMonth(date.month);
               }}
               className={`flex min-w-fit cursor-pointer flex-col items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-all max-sm:p-1 ${
-                selectedDate === date.date
-                  ? "bg-blue-600 text-white shadow-md" // Selected date styling
+                selectedDate === date.date && selectedMonth === date.month
+                  ? "bg-blue-600 text-white shadow-md"
+                  : date.isMonday
+                  ? "bg-green-100 text-green-600 hover:bg-green-200"
                   : date.isToday
-                    ? "bg-blue-100 text-blue-600 hover:bg-blue-200" // Today's date styling
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200" // Default styling
+                  ? "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
               }`}
             >
               <span className="text-xs font-semibold uppercase">
@@ -184,7 +189,7 @@ const SmoothDatePicker: React.FC<DatePickerProps> = ({ getSelectedDay }) => {
             <Calendar
               mode="single"
               selected={date}
-              onSelect={handleCalendarDateSelect} // Use the updated handler
+              onSelect={handleCalendarDateSelect}
               initialFocus
             />
           </PopoverContent>
