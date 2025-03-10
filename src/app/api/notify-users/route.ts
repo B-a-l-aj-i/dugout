@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const CHANNEL_ID = process.env.CHANNEL_ID;
+const DUGOUT_CHANNEL_ID = process.env.DUGOUT_CHANNEL_ID;
 
 function getISTDate() {
   const date = new Date();
@@ -52,7 +52,7 @@ export async function GET() {
     const latest = (getISTDate().getTime() / 1000).toString();
 
     const historyResponse = await fetch(
-      `https://slack.com/api/conversations.history?channel=${CHANNEL_ID}&oldest=${oldest}&latest=${latest}`,
+      `https://slack.com/api/conversations.history?channel=${DUGOUT_CHANNEL_ID}&oldest=${oldest}&latest=${latest}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.SLACK_DUGOUT_BOT_TOKEN}`,
@@ -86,7 +86,7 @@ export async function GET() {
     const activeUserIds = new Set(historyData.messages.map((msg: { user: string }) => msg.user));
 
     // Get ignored users from env
-    const ignoredUsers = (process.env.IGNORE_USERS || "").split(",").map(id => id.trim());
+    const ignoredUsers = (process.env.ADMIN_USERS || "").split(",").map(id => id.trim());
     const ignoredUsersSet = new Set(ignoredUsers);
 
     // Filter inactive users (who haven't sent messages today)
@@ -127,7 +127,7 @@ export async function GET() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          channel: CHANNEL_ID,
+          channel: DUGOUT_CHANNEL_ID,
           username: "Dugout Bot",
           icon_url: "https://slack.com/img/icons/app-57.png",
           text: randomMessage,
