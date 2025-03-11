@@ -20,8 +20,11 @@ function SidebarFilter({ members }) {
     (user) =>
       user.real_name !== "AJ" &&
       user.real_name !== "Slackbot" &&
+      user.is_bot == false &&
       user.real_name,
   );
+
+  filteredItemsArray?.sort((a, b) => a.real_name.localeCompare(b.real_name));
 
   const { users, setUsers } = UsersContext();
 

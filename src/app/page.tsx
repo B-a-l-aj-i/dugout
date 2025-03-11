@@ -15,7 +15,7 @@ export default async function App() {
   return (
     <div>
       <Header user={session?.user} />
-      {(session?.user && (
+      {(!session?.user && (
         <div className="flex min-h-screen">
           <Sidebar members={members} />
           <div className="mx-auto w-full px-4">

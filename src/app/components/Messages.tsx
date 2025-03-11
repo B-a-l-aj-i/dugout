@@ -15,6 +15,7 @@ interface Member {
   real_name: string;
   name: string;
   id: string;
+  is_bot: boolean;
 }
 
 interface MessagesProps {
@@ -79,7 +80,12 @@ function Messages({ members }: MessagesProps) {
             <div>
               {members?.map(
                 (
-                  user: { real_name: string; name: string; id: string },
+                  user: {
+                    real_name: string;
+                    name: string;
+                    id: string;
+                    is_bot: boolean;
+                  },
                   key: number,
                 ) => {
                   if (
@@ -90,15 +96,17 @@ function Messages({ members }: MessagesProps) {
                     if (
                       user.id != process.env.ADMIN_USERS &&
                       user.name != "slackbot" &&
-                      user.name != "aj"
+                      user.name != "aj" &&
+                      user.is_bot == false
                     ) {
                       return (
                         <AlertDescription
-                          className="inline-flex items-center gap-2 px-2"
+                          className="inline-flex items-center gap-2 px-2 py-2"
                           key={key}
                         >
                           <span className="rounded-2xl bg-gray-100 px-2 py-1 text-orange-500">
-                            {user?.real_name}
+                            {user?.real_name || user?.name}
+                            {/* <pre>{JSON.stringify(user, null, 2)}</pre> */}
                           </span>
                         </AlertDescription>
                       );
