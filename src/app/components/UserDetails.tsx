@@ -29,7 +29,6 @@ export const slackPersistentFetcher = async (
   }
 
   // Use Next.js API route instead of calling Slack directly
-  console.log(url);
 
   const res = await fetch(url, {
     method: "GET",
@@ -81,17 +80,20 @@ function UserDetails({
   // console.log(userData);
 
   return (
-    <div className="mb-4 flex gap-3">
-      <Avatar className="h-8 w-8">
+    <div className="flex gap-3">
+      <Avatar className="h-11 w-11">
         <AvatarImage src={userData?.user?.profile?.image_48 || "/globe.svg"} />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
       <div>
         {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
-        <p className="text-sm font-bold">
+        <p className="font-[inter-variable] text-[15px] font-[400]">
           {userData?.user?.profile?.real_name || "Fetching"}
+          {"       "}
+          <span className="text-xs text-[#999999]">
+            {formatTimestamp(Number(timestamp)).split(" ")[0]}
+          </span>
         </p>
-        <p className="text-xs">{formatTimestamp(Number(timestamp))}</p>
       </div>
     </div>
   );

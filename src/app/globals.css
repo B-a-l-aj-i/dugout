@@ -1,6 +1,23 @@
+@import url("https://use.typekit.net/hnv5yfz.css");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Departure Mono";
+  src:
+    url("/fonts/DepartureMono-Regular.woff2") format("woff2"),
+    url("/fonts/DepartureMono-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer base {
+  html {
+    font-family: "inter-variable", sans-serif;
+    font-variation-settings: "slnt" 0;
+  }
+}
 
 /* :root {
   --background: #ffffff;
@@ -19,6 +36,7 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 } */
+
 strong {
   font-weight: bold;
 }

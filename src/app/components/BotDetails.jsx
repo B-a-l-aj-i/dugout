@@ -10,14 +10,22 @@ function BotDetails({ userInfo }) {
         <AvatarImage src={userInfo?.icons?.image_48 || "/globe.svg"} />
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
+
       <div>
         {/* <pre>{JSON.stringify(userData, null, 2)}</pre> */}
-        <p className="font-bold">
+        <span className="font-[inter-variable] text-[15px] font-[400]">
           {userInfo?.username || "Fetching"}
-          <span className="mx-1 rounded-md bg-slate-200 p-1 text-xs"> APP</span>
-        </p>
+          {"  "}
+          {/* <span className="text-xs text-[#999999]"></span> */}
+          <span className="mx-1 rounded-md bg-slate-200 pb-[1px] pl-[8px] pr-[5px] pt-1 text-xs">
+            {" "}
+            APP
+          </span>
+        </span>
 
-        <p className="text-xs">{formatTimestamp(userInfo.ts)}</p>
+        <span className="text-xs text-[#999999]">
+          {formatTimestamp(Number(userInfo?.ts)).split(" ")[0]}
+        </span>
       </div>
     </div>
   );

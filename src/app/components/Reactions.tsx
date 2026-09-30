@@ -7,8 +7,6 @@ function Reactions({
   timestamp: string;
   reactions: [];
 }) {
-  console.log(reactions);
-
   async function handleEmoji(emoji: string, timestamp: string) {
     // console.log(emoji);
     // console.log(timestamp);
@@ -27,7 +25,7 @@ function Reactions({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            channel: "C089LA005S8", // Replace with your channel ID
+            channel: process.env.NEXT_PUBLIC_DUGOUT_CHANNEL_ID, // Replace with your channel ID
             name: emoji, // Use the selected emoji
             timestamp: timestamp, // Replace with the message timestamp
           }),

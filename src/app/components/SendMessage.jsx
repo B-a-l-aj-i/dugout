@@ -51,7 +51,7 @@ export function SendMessage({ user }) {
   async function onSubmit(values) {
     try {
       await trigger({
-        channel: "C089LA005S8",
+        channel: process.env.NEXT_PUBLIC_DUGOUT_CHANNEL_ID,
         text: values.message,
         userName: user?.name,
         icon_url: user?.image,

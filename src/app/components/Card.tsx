@@ -43,8 +43,8 @@ function Card({
   const { data: session } = useSession();
 
   return (
-    <div className="group relative my-3 rounded-lg border-[1px] border-slate-200/50 p-4 max-sm:p-2">
-      {session?.user && (
+    <div className="group relative my-3 rounded-lg p-4 font-[inter-variable] max-sm:p-2">
+      {session?.user?.email == "sandeep@timeless.co" && (
         <div className="absolute right-0 top-0 flex w-fit cursor-pointer gap-3 rounded-md border border-t-0 px-1 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
           {
             // *****reactions are hadled

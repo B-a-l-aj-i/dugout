@@ -1,7 +1,6 @@
 import Header from "@/app/components/Header";
 import { SendMessage } from "./components/SendMessage";
 import Messages from "./components/Messages";
-import Sidebar from "./components/Sidebar";
 import { auth } from "./auth";
 
 export default async function App() {
@@ -14,11 +13,12 @@ export default async function App() {
 
   return (
     <div>
+      {/* <pre className="z-[1000]">{JSON.stringify(members, null, 2)}</pre> */}
+
       <Header user={session?.user} />
       {(!session?.user && (
-        <div className="flex min-h-screen">
-          <Sidebar members={members} />
-          <div className="mx-auto w-full px-4">
+        <div>
+          <div className="mx-auto">
             {session?.user?.email == "connectbalajidev@gmail.com" && (
               <SendMessage user={session?.user} />
             )}

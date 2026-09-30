@@ -1,4 +1,3 @@
-//in card.jsx
 import React, { useState } from "react";
 
 import { useSession } from "next-auth/react";
@@ -54,7 +53,7 @@ function Reply({ click, timestamp }) {
   async function onSubmit(values) {
     try {
       await trigger({
-        channel: "C089LA005S8",
+        channel: process.env.NEXT_PUBLIC_DUGOUT_CHANNEL_ID,
         text: values.message,
         userName: session?.user?.name,
         icon_url: session?.user?.image,

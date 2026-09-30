@@ -23,7 +23,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session = Object.assign({}, session, {
           access_token: token.access_token,
         });
-        console.log(session);
+        // console.log(session);
       }
       return session;
     },

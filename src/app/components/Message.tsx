@@ -1,20 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import UserDetails from "./UserDetails";
 import BotDetails from "./BotDetails";
 import Img from "./Img";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkEmoji from "remark-emoji";
 import Video from "./Video";
 import rehypeRaw from "rehype-raw";
 import { UsersContext } from "@/context/user";
-import { ChevronDown, ChevronRight, Download, File } from "lucide-react";
-import ThreadMesssage from "./ThreadMesssage";
+import { Download, File } from "lucide-react";
 
-// interface User {
-//   id: string;
-//   real_name: string;
-// }
+import ThreadMesssage from "./ThreadMesssage";
 
 interface IUserProps {
   userInfo: {
@@ -31,33 +28,37 @@ interface IUserProps {
 }
 
 function Message({ userInfo }: IUserProps) {
-  // console.log(userInfo);
-
   const { users } = UsersContext();
-  // console.log(users);
 
-  const [open, setOpen] = useState(true);
-  const [reactedUsers, setReactedUsers] = useState<number | null>(null); ///tool tip for reaction
+  const processedText = userInfo?.text
+    // Replace mentions (<@userId>)
+    ?.replace(/<@(\w+)>/g, (_, userId) => {
+      const user = users?.find((user) => user.id === userId);
+      return user
+        ? `<span class="text-yellow-500">@${user.real_name}</span>`
+        : `<@${userId}>`;
+    })
+    // Convert Slack link format <url|text> to Markdown link format [text](url)
+    .replace(/<([^|>]+)\|([^>]+)>/g, "[$2]($1)")
+    // Preserve multi-line code blocks (```code```)
+    .replace(/```([\s\S]*?)```/g, "```$1```")
+    // Convert inline code `code` into <code> tags
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+
+  const [reactedUsers, setReactedUsers] = useState<number | null>(null);
 
   function handleReactions(key: number) {
     setReactedUsers((prevKey) => (prevKey === key ? null : key));
   }
 
   return (
-    <div>
-      {/* <pre>{JSON.stringify(userInfo.subtype, null, 2)}</pre>
-      <pre>{JSON.stringify(userInfo.parent_user_id, null, 2)}</pre>
-      <pre>{JSON.stringify(userInfo.user, null, 2)}</pre> */}
-
+    <div className="font-[inter-variable]">
       {userInfo.subtype === "bot_message" ||
       userInfo.user === userInfo.parent_user_id ? (
         <div className="flex-row gap-3">
-          {
-            userInfo?.subtype === "bot_message" ? (
-              <BotDetails userInfo={userInfo} />
-            ) : null
-            // <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />
-          }
+          {userInfo?.subtype === "bot_message" ? (
+            <BotDetails userInfo={userInfo} />
+          ) : null}
         </div>
       ) : (
         <UserDetails userId={userInfo?.user} timestamp={userInfo?.ts} />
@@ -134,35 +135,50 @@ function Message({ userInfo }: IUserProps) {
           }
         </div>
 
-        <div className="m-2">
-          <pre className="overflow-auto whitespace-pre-wrap font-sans">
+        <div className="ml-[27px]">
+          <pre className="overflow-auto whitespace-pre-wrap font-[inter-variable] text-[15px]">
             <ReactMarkdown
               components={{
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 a: ({ node, ...props }) => (
                   <a
                     target="_blank"
+                    rel="noopener noreferrer"
                     {...props}
                     className="text-blue-500 hover:underline"
                   />
                 ),
+                code: ({
+                  node,
+                  inline,
+                  children,
+                  ...props
+                }: {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  node?: any;
+                  inline?: boolean;
+                  children?: ReactNode;
+                }) =>
+                  inline ? (
+                    <span className="rounded border bg-gray-200 px-1">
+                      {children}
+                    </span>
+                  ) : (
+                    <span
+                      {...props}
+                      className="w-fit rounded border bg-transparent px-[2px] pt-[2px] text-orange-400"
+                    >
+                      <span>{children}</span>
+                    </span>
+                  ),
               }}
               remarkPlugins={[remarkGfm, remarkEmoji]}
               rehypePlugins={[rehypeRaw]}
             >
-              {userInfo?.text?.includes("<@")
-                ? userInfo?.text.replace(/<@(\w+)>/g, (_, userId) => {
-                    const user = users?.find((user) => user.id === userId);
-                    return user
-                      ? ` <span classname="text-yellow-500">@${user?.real_name}</span> `
-                      : `<@${userId}>`;
-                  })
-                : userInfo?.text}
+              {processedText}
             </ReactMarkdown>
           </pre>
         </div>
         {///handleing reactions
-
         userInfo?.reactions?.map(
           (
             reaction: { name: string; count: number; users: [] },
@@ -173,30 +189,28 @@ function Message({ userInfo }: IUserProps) {
             return (
               <div
                 key={key}
-                className="relative mx-1 inline-flex cursor-pointer items-center rounded-2xl border px-1 text-[10px] hover:border-blue-300"
+                className="relative left-7 mx-1 inline-flex cursor-pointer items-center rounded-2xl border px-1 text-[10px] hover:border-blue-300"
               >
-                <div onClick={() => handleReactions(key)} className="flex">
+                <div
+                  onClick={() => handleReactions(key)}
+                  className="flex pb-[2px] pt-[3px]"
+                >
                   <ReactMarkdown remarkPlugins={[remarkGfm, remarkEmoji]}>
                     {":" + reaction?.name + ":"}
                   </ReactMarkdown>
                   <span className="px-1">{reaction?.count}</span>
                   {reactedUsers == key && (
                     <div>
-                      {/* <pre>{JSON.stringify(reaction.users, null, 2)}</pre>
-                      <pre>{JSON.stringify(users, null, 2)}</pre> */}
-                      {reaction.users.map((usr, index) => {
-                        const u = users?.find((user) => user.id == usr);
-                        return (
-                          <div
-                            className="absolute left-0 top-16 z-50 h-fit min-w-full rounded-md bg-slate-800 px-2 py-4 text-white"
-                            key={index}
-                          >
-                            <span className="w-fit">
-                              {(u && u?.real_name) || usr}
-                            </span>
-                          </div>
-                        );
-                      })}
+                      <div className="absolute left-0 top-6 z-50 h-fit w-[120px] rounded-md bg-slate-800 px-2 py-2 text-white">
+                        {reaction.users.map((usr, index) => {
+                          const u = users?.find((user) => user.id == usr);
+                          return (
+                            <li key={index} className="w-fit">
+                              {(u && u?.real_name) || usr}{" "}
+                            </li>
+                          );
+                        })}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -207,27 +221,12 @@ function Message({ userInfo }: IUserProps) {
 
         {/* <pre>{JSON.stringify(userInfo?.reactions, null, 2)}</pre> */}
       </div>
-      {userInfo.reply_count > 0 && (
-        <p
-          className="my-4 flex w-fit cursor-pointer items-center gap-2 rounded-lg text-sm text-blue-400 hover:text-blue-300"
-          onClick={() => setOpen(!open)}
-        >
-          {!open && <ChevronRight className="text-black" size={18} />}
-          {open && <ChevronDown className="text-black" size={18} />}
-          {userInfo.reply_count}
-          {userInfo.reply_count > 1 ? " Replies" : " Reply"}
-        </p>
-      )}
 
-      {/* {userInfo?.reply_count > 0 && open && ( */}
-      <div
-        className={`overflow-hidden transition-all duration-500 ease-linear ${
-          userInfo?.reply_count > 0 && open
-            ? "max-h-fit opacity-100"
-            : "max-h-0 opacity-0"
-        }`}
-      >
-        <ThreadMesssage channelId="C089LA005S8" timestamp={userInfo.ts} />
+      <div>
+        <ThreadMesssage
+          channelId={process.env.NEXT_PUBLIC_DUGOUT_CHANNEL_ID!}
+          timestamp={userInfo.ts}
+        />
       </div>
       {/* )} */}
     </div>
